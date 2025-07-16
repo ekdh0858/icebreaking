@@ -1,28 +1,138 @@
-<!-- intro -->
-<section id="intro">
-  <h1>나는 디지털 선도 교사형인가?</h1>
-  <p>간단한 질문으로 나의 교육 스타일을 진단해보세요.</p>
-  <button onclick="startQuiz()">시작하기</button>
-</section>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>나는 디지털 선도 교사형인가?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      text-align: center;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    section {
+      margin-top: 40px;
+    }
+    .question {
+      margin-bottom: 30px;
+      text-align: left;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
 
-<!-- quiz -->
-<section id="quiz" style="display:none;">
-  <form id="quizForm">
-    <div class="question">
-      <p>Q1. 새로운 수업 도구가 소개되면?</p>
-      <label><input type="radio" name="q1" value="4"> 바로 사용해본다</label><br>
-      <label><input type="radio" name="q1" value="3"> 사용법을 찾아본다</label><br>
-      <label><input type="radio" name="q1" value="2"> 남이 쓰면 따라한다</label><br>
-      <label><input type="radio" name="q1" value="1"> 기존 도구만 사용한다</label>
-    </div>
-    <!-- 다른 질문들도 동일 구조 -->
-    <button type="submit">결과 보기</button>
-  </form>
-</section>
+  <!-- Intro -->
+  <section id="intro">
+    <h1>나는 디지털 선도 교사형인가?</h1>
+    <p>간단한 테스트로 나의 교육 스타일을 알아보세요.</p>
+    <button onclick="startQuiz()">시작하기</button>
+  </section>
 
-<!-- result -->
-<section id="result" style="display:none;">
-  <h2>당신은 <span id="resultType"></span> 유형입니다!</h2>
-  <p id="resultDesc"></p>
-  <button onclick="restartQuiz()">다시 하기</button>
-</section>
+  <!-- Quiz -->
+  <section id="quiz" style="display:none;">
+    <form id="quizForm">
+
+      <div class="question">
+        <p><strong>Q1.</strong> 새로운 수업 도구가 소개되면?</p>
+        <label><input type="radio" name="q1" value="4" required> 바로 사용해본다</label><br>
+        <label><input type="radio" name="q1" value="3"> 사용법을 찾아본다</label><br>
+        <label><input type="radio" name="q1" value="2"> 다른 사람이 쓰면 따라한다</label><br>
+        <label><input type="radio" name="q1" value="1"> 기존 도구만 사용한다</label>
+      </div>
+
+      <div class="question">
+        <p><strong>Q2.</strong> AI 툴(예: 챗GPT)을 수업에 활용하는 것에 대해?</p>
+        <label><input type="radio" name="q2" value="4" required> 적극 찬성! 자주 사용한다</label><br>
+        <label><input type="radio" name="q2" value="3"> 한두 번 써봤다</label><br>
+        <label><input type="radio" name="q2" value="2"> 들어본 적은 있다</label><br>
+        <label><input type="radio" name="q2" value="1"> 전혀 시도해본 적 없다</label>
+      </div>
+
+      <div class="question">
+        <p><strong>Q3.</strong> 연수나 워크숍에서 디지털 교육 주제를 선택할 때?</p>
+        <label><input type="radio" name="q3" value="4" required> 디지털 관련 주제를 우선 신청한다</label><br>
+        <label><input type="radio" name="q3" value="3"> 관심이 가면 신청한다</label><br>
+        <label><input type="radio" name="q3" value="2"> 학교 지시에 따라 신청한다</label><br>
+        <label><input type="radio" name="q3" value="1"> 잘 신청하지 않는다</label>
+      </div>
+
+      <div class="question">
+        <p><strong>Q4.</strong> 수업 자료나 노하우를 다른 교사와 공유하는 편인가요?</p>
+        <label><input type="radio" name="q4" value="4" required> 자주 공유하고 먼저 나선다</label><br>
+        <label><input type="radio" name="q4" value="3"> 요청이 있으면 공유한다</label><br>
+        <label><input type="radio" name="q4" value="2"> 가끔 공유한다</label><br>
+        <label><input type="radio" name="q4" value="1"> 거의 공유하지 않는다</label>
+      </div>
+
+      <div class="question">
+        <p><strong>Q5.</strong> 새로운 기술이나 플랫폼을 배우는 것에 대해?</p>
+        <label><input type="radio" name="q5" value="4" required> 스스로 검색하고 익힌다</label><br>
+        <label><input type="radio" name="q5" value="3"> 연수를 통해 배우는 편이다</label><br>
+        <label><input type="radio" name="q5" value="2"> 동료에게 배운다</label><br>
+        <label><input type="radio" name="q5" value="1"> 배우는 것이 부담스럽다</label>
+      </div>
+
+      <button type="submit">결과 보기</button>
+    </form>
+  </section>
+
+  <!-- Result -->
+  <section id="result" style="display:none;">
+    <h2>당신은 <span id="resultType"></span> 유형입니다!</h2>
+    <p id="resultDesc"></p>
+    <button onclick="restartQuiz()">다시 하기</button>
+  </section>
+
+  <script>
+    function startQuiz() {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('quiz').style.display = 'block';
+    }
+
+    function restartQuiz() {
+      window.location.reload();
+    }
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      let total = 0;
+      for (let [_, value] of formData.entries()) {
+        total += parseInt(value);
+      }
+
+      let type = '', desc = '';
+      if (total >= 20) {
+        type = '💡 디지털 마이스터';
+        desc = '디지털 도구에 능숙하고, 변화를 주도하는 교육 혁신가입니다!';
+      } else if (total >= 16) {
+        type = '🚀 탐험가 교사';
+        desc = '새로운 시도에 열려 있으며 꾸준히 성장하는 타입입니다.';
+      } else if (total >= 12) {
+        type = '📚 따라잡는 중 교사';
+        desc = '변화를 인식하고 적응해나가고 있는 중입니다.';
+      } else {
+        type = '🏫 전통 보수파 교사';
+        desc = '기존 방식에 익숙하지만, 변화의 필요성을 느끼고 있습니다.';
+      }
+
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('resultType').innerText = type;
+      document.getElementById('resultDesc').innerText = desc;
+      document.getElementById('result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
