@@ -30,6 +30,7 @@
 
   <h1>나는 디지털 선도 교사형인가?</h1>
 
+  <!-- ✅ 초기에는 보여야 하므로 hidden 제거 -->
   <div id="quizContainer">
     <div id="questionBox">
       <p id="questionText"></p>
@@ -153,9 +154,9 @@
       }
 
       document.getElementById("quizContainer").classList.add("hidden");
-      document.getElementById("resultContainer").classList.remove("hidden");
       document.getElementById("resultType").innerText = type;
       document.getElementById("resultDesc").innerText = desc;
+      document.getElementById("resultContainer").classList.remove("hidden");
     }
 
     // 시작 시 첫 질문 렌더링
