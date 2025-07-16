@@ -101,13 +101,11 @@ body {
     text-align: center;
 }
 
-#startContainer .mdl-card__supporting-text {
-    background-color: transparent;
-}
-
+#startContainer .mdl-card__supporting-text,
 #startContainer .mdl-card__actions {
-    background-color: transparent;
-    border-top: none;
+    background-color: transparent !important; /* 배경을 투명하게 */
+    border-top: none !important;              /* 구분선 제거 */
+    box-shadow: none !important;
 }
 
 /* 버튼 */
