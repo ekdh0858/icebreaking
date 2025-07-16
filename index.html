@@ -162,225 +162,245 @@
     </div>
 
     <script>
-        const questions = [
-            {
-                text: "Q1. 새로운 학습 도구(AI, 온라인 플랫폼 등)가 소개되면 어떤 반응을 보이시나요?",
-                options: [
-                    { text: "🌟 바로 사용해보며 수업에 적용할 방법을 모색합니다.", value: 4 },
-                    { text: "🔍 사용법을 찾아보고 흥미로우면 시도해봅니다.", value: 3 },
-                    { text: "🤝 다른 튜터가 사용하는 것을 보고 괜찮으면 따라 합니다.", value: 2 },
-                    { text: "🔄 기존에 사용하던 익숙한 도구를 선호합니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q2. 튜터링 자료 준비 시, 디지털 도구(템플릿, 그래픽 툴 등) 활용 빈도는?",
-                options: [
-                    { text: "✨ 대부분의 자료를 디지털 도구로 직접 제작하고 활용합니다.", value: 4 },
-                    { text: "💻 필요한 경우에만 디지털 자료를 활용하거나 수정합니다.", value: 3 },
-                    { text: "📄 기본적인 자료는 직접 만들고, 디지털 자료는 보조적으로 사용합니다.", value: 2 },
-                    { text: "📝 주로 수기 자료나 인쇄물을 선호합니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q3. 학생 개개인의 학습 진도와 특성을 파악하기 위해 어떤 방식을 사용하나요?",
-                options: [
-                    { text: "📈 학습 관리 시스템(LMS)이나 온라인 도구를 적극 활용하여 데이터를 분석합니다.", value: 4 },
-                    { text: "🗒️ 주요 내용은 디지털 기록으로 남기고, 수시로 피드백합니다.", value: 3 },
-                    { text: "🗣️ 주로 대면 상담을 통해 학생의 상황을 파악하고 기억에 의존합니다.", value: 2 },
-                    { text: "✏️ 간단한 메모나 인쇄물로만 관리합니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q4. 학생과의 소통 방식에서 디지털 채널(메신저, 이메일 등) 활용 비중은?",
-                options: [
-                    { text: "📱 주로 디지털 메신저나 플랫폼으로 실시간 소통 및 공지를 합니다.", value: 4 },
-                    { text: "📧 중요한 공지나 자료 전달 시 디지털 채널을 활용합니다.", value: 3 },
-                    { text: "📞 간단한 내용은 전화나 대면 소통을 선호하고, 디지털은 보조적입니다.", value: 2 },
-                    { text: "🚫 디지털 소통은 거의 하지 않고 대면 만남을 중요시합니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q5. 튜터링 중 문제가 발생했을 때, 기술적인 해결 능력은 어느 정도인가요?",
-                options: [
-                    { text: "💡 스스로 검색하거나 해결책을 찾아 능숙하게 대처합니다.", value: 4 },
-                    { text: "🤔 간단한 문제는 해결하지만, 복잡하면 도움을 요청합니다.", value: 3 },
-                    { text: "🤷‍♀️ 기술적인 문제는 다른 사람에게 전적으로 의존하는 편입니다.", value: 2 },
-                    { text: "🙅‍♀️ 기술 문제 해결 자체에 부담을 느낍니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q6. 새로운 튜터링 방법론이나 교육 트렌드에 대한 관심도는?",
-                options: [
-                    { text: "📚 관련 서적, 온라인 강의, 세미나를 찾아보며 적극적으로 학습합니다.", value: 4 },
-                    { text: "📰 교육 관련 뉴스를 접하면 내용을 파악하고 적용을 고려합니다.", value: 3 },
-                    { text: "👂 동료 튜터들과의 대화를 통해 정보를 얻는 편입니다.", value: 2 },
-                    { text: "💤 특별히 관심을 두지 않고 기존 방식을 유지합니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q7. 학생들에게 학습 동기를 부여하기 위해 어떤 방법을 사용하나요?",
-                options: [
-                    { text: "🎮 게이미피케이션, 인터랙티브 퀴즈 등 디지털 요소를 적극 활용합니다.", value: 4 },
-                    { text: "🌟 칭찬 스티커, 작은 보상 등 직접적인 피드백을 제공합니다.", value: 3 },
-                    { text: "💬 주로 격려의 말이나 상담을 통해 동기를 부여합니다.", value: 2 },
-                    { text: "🎯 학생들이 스스로 동기를 찾도록 기다리는 편입니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q8. 튜터로서 자기 계발을 위해 어떤 노력을 하시나요?",
-                options: [
-                    { text: "🚀 최신 교육 기술 연수나 전문 분야 스터디에 꾸준히 참여합니다.", value: 4 },
-                    { text: "📖 필요하다고 생각될 때 관련 분야 서적이나 자료를 찾아봅니다.", value: 3 },
-                    { text: "💬 주변 튜터들과 정보를 공유하며 배우는 편입니다.", value: 2 },
-                    { text: "🧘‍♀️ 특별한 노력 없이 현 상태를 유지합니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q9. 튜터링 과정에서 학생의 집중력 유지를 위해 어떤 방법을 사용하나요?",
-                options: [
-                    { text: "💡 짧은 활동, 멀티미디어 자료, 온라인 협업 도구를 다양하게 활용합니다.", value: 4 },
-                    { text: "⏰ 적절한 휴식 시간과 활동 전환을 통해 집중을 돕습니다.", value: 3 },
-                    { text: "🗣️ 질문과 답변을 통해 학생의 참여를 유도합니다.", value: 2 },
-                    { text: "👀 주로 학생의 자율성에 맡기고 지켜보는 편입니다.", value: 1 }
-                ]
-            },
-            {
-                text: "Q10. 동료 튜터들에게 디지털 도구나 교육 노하우를 공유한 경험이 있나요?",
-                options: [
-                    { text: "🤝 적극적으로 먼저 제안하고, 필요하면 직접 가르쳐줍니다.", value: 4 },
-                    { text: "🗣️ 유용한 정보를 알게 되면 공유하지만, 주도적이지는 않습니다.", value: 3 },
-                    { text: "🤔 요청이 있으면 공유하지만, 먼저 나서지는 않습니다.", value: 2 },
-                    { text: "🔒 개인적인 노하우는 잘 공유하지 않습니다.", value: 1 }
-                ]
-            }
-        ];
-
-        const results = {
-            "디지털 마스터 튜터": {
-                minScore: 36,
-                maxScore: 40,
-                desc: "당신은 최신 디지털 기술과 교육 트렌드를 능숙하게 활용하는 선도적인 튜터입니다. 변화를 두려워하지 않고, 학생들의 학습 경험을 혁신하기 위해 끊임없이 탐구하고 적용하는 진정한 교육 혁신가입니다. 당신의 역량은 다른 튜터들에게도 큰 영감을 줍니다!",
-                icon: "psychology" // 또는 'rocket_launch', 'lightbulb'
-            },
-            "탐험가 튜터": {
-                minScore: 28,
-                maxScore: 35,
-                desc: "새로운 학습 도구나 방법론에 대한 호기심이 많고, 시도해보는 것을 즐기는 튜터입니다. 꾸준히 자신을 발전시키고 학생들에게 더 나은 경험을 제공하기 위해 노력합니다. 앞으로 디지털 역량을 더욱 강화한다면 마스터 튜터로 성장할 수 있습니다!",
-                icon: "explore" // 또는 'travel_explore', 'science'
-            },
-            "성장 중인 튜터": {
-                minScore: 20,
-                maxScore: 27,
-                desc: "디지털 교육의 중요성을 인지하고 있으며, 변화에 적응하고 성장하기 위해 노력하고 있는 튜터입니다. 아직은 익숙하지 않지만, 배우려는 의지가 강하여 점진적으로 역량을 향상시킬 수 있습니다. 작은 시도부터 시작해보는 것이 좋습니다!",
-                icon: "trending_up" // 또는 'school', 'emoji_objects'
-            },
-            "기본에 충실한 튜터": {
-                minScore: 10,
-                maxScore: 19,
-                desc: "기존의 검증된 튜터링 방식에 능숙하고 안정적인 수업을 지향하는 튜터입니다. 디지털 도구 활용에 다소 익숙하지 않을 수 있지만, 튜터로서의 본질적인 역량은 충분합니다. 새로운 기술을 천천히 접목하며 학생들과의 소통 방식을 넓혀간다면 더욱 풍부한 튜터링이 가능할 것입니다.",
-                icon: "bookmark" // 또는 'book', 'history_edu'
-            }
-        };
-
-        let currentQuestionIndex = 0;
-        let totalScore = 0;
-        let selectedOptionValue = null; // Track selected option value
-
-        const quizContainer = document.getElementById("quizContainer");
-        const resultContainer = document.getElementById("resultContainer");
-        const questionText = document.getElementById("questionText");
-        const optionList = document.getElementById("optionList");
-        const nextBtn = document.getElementById("nextBtn");
-        const progressBar = document.getElementById("p2");
-
-        function updateProgressBar() {
-            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-            progressBar.MaterialProgress.setProgress(progress);
+    const questions = [
+        {
+            text: "Q1. 새로운 학습 도구(AI, 온라인 플랫폼 등)가 소개되면 어떤 반응을 보이시나요?",
+            options: [
+                { text: "🌟 바로 사용해보며 수업에 적용할 방법을 모색합니다.", value: 4 },
+                { text: "🔍 사용법을 찾아보고 흥미로우면 시도해봅니다.", value: 3 },
+                { text: "🤝 다른 튜터가 사용하는 것을 보고 괜찮으면 따라 합니다.", value: 2 },
+                { text: "🔄 기존에 사용하던 익숙한 도구를 선호합니다.", value: 1 }
+            ]
+        },
+        {
+            text: "Q2. 튜터링 자료 준비 시, 디지털 도구(템플릿, 그래픽 툴 등) 활용 빈도는?",
+            options: [
+                { text: "✨ 대부분의 자료를 디지털 도구로 직접 제작하고 활용합니다.", value: 4 },
+                { text: "💻 필요한 경우에만 디지털 자료를 활용하거나 수정합니다.", value: 3 },
+                { text: "📄 기본적인 자료는 직접 만들고, 디지털 자료는 보조적으로 사용합니다.", value: 2 },
+                { text: "📝 주로 수기 자료나 인쇄물을 선호합니다.", value: 1 }
+            ]
+        },
+        {
+            text: "Q3. 학생 개개인의 학습 진도와 특성을 파악하기 위해 어떤 방식을 사용하나요?",
+            options: [
+                { text: "📈 학습 관리 시스템(LMS)이나 온라인 도구를 적극 활용하여 데이터를 분석합니다.", value: 4 },
+                { text: "🗒️ 주요 내용은 디지털 기록으로 남기고, 수시로 피드백합니다.", value: 3 },
+                { text: "🗣️ 주로 대면 상담을 통해 학생의 상황을 파악하고 기억에 의존합니다.", value: 2 },
+                { text: "✏️ 간단한 메모나 인쇄물로만 관리합니다.", value: 1 }
+            ]
+        },
+        {
+            text: "Q4. 학생과의 소통 방식에서 디지털 채널(메신저, 이메일 등) 활용 비중은?",
+            options: [
+                { text: "📱 주로 디지털 메신저나 플랫폼으로 실시간 소통 및 공지를 합니다.", value: 4 },
+                { text: "📧 중요한 공지나 자료 전달 시 디지털 채널을 활용합니다.", value: 3 },
+                { text: "📞 간단한 내용은 전화나 대면 소통을 선호하고, 디지털은 보조적입니다.", value: 2 },
+                { text: "🚫 디지털 소통은 거의 하지 않고 대면 만남을 중요시합니다.", value: 1 }
+            ]
+        },
+        {
+            text: "Q5. 튜터링 중 문제가 발생했을 때, 기술적인 해결 능력은 어느 정도인가요?",
+            options: [
+                { text: "💡 스스로 검색하거나 해결책을 찾아 능숙하게 대처합니다.", value: 4 },
+                { text: "🤔 간단한 문제는 해결하지만, 복잡하면 도움을 요청합니다.", value: 3 },
+                { text: "🤷‍♀️ 기술적인 문제는 다른 사람에게 전적으로 의존하는 편입니다.", value: 2 },
+                { text: "🙅‍♀️ 기술 문제 해결 자체에 부담을 느낍니다.", value: 1 }
+            ]
+        },
+        {
+            text: "Q6. 새로운 튜터링 방법론이나 교육 트렌드에 대한 관심도는?",
+            options: [
+                { text: "📚 관련 서적, 온라인 강의, 세미나를 찾아보며 적극적으로 학습합니다.", value: 4 },
+                { text: "📰 교육 관련 뉴스를 접하면 내용을 파악하고 적용을 고려합니다.", value: 3 },
+                { text: "👂 동료 튜터들과의 대화를 통해 정보를 얻는 편입니다.", value: 2 },
+                { text: "💤 특별히 관심을 두지 않고 기존 방식을 유지합니다.", value: 1 }
+            ]
+        },
+        {
+            text: "Q7. 학생들에게 학습 동기를 부여하기 위해 어떤 방법을 사용하나요?",
+            options: [
+                { text: "🎮 게이미피케이션, 인터랙티브 퀴즈 등 디지털 요소를 적극 활용합니다.", value: 4 },
+                { text: "🌟 칭찬 스티커, 작은 보상 등 직접적인 피드백을 제공합니다.", value: 3 },
+                { text: "💬 주로 격려의 말이나 상담을 통해 동기를 부여합니다.", value: 2 },
+                { text: "🎯 학생들이 스스로 동기를 찾도록 기다리는 편입니다.", value: 1 }
+            ]
+        },
+        {
+            text: "Q8. 온라인 플랫폼으로 자료를 제공하나요?",
+            options: [
+                { text: "플랫폼을 자주 활용해 공유한다", value: 4 },
+                { text: "가끔 자료를 업로드한다", value: 3 },
+                { text: "학습지 정도만 공유한다", value: 2 },
+                { text: "온라인 공유는 하지 않는다", value: 1 }
+            ]
+        },
+        {
+            text: "Q9. 디지털 격차가 있는 학생을 위해?",
+            options: [
+                { text: "별도 안내와 보조자료를 제공한다", value: 4 },
+                { text: "친절하게 설명해주려 노력한다", value: 3 },
+                { text: "기본만 챙기려고 한다", value: 2 },
+                { text: "어쩔 수 없는 일이라 생각한다", value: 1 }
+            ]
+        },
+        {
+            text: "Q10. 동료 튜터들에게 디지털 도구나 교육 노하우를 공유한 경험이 있나요?",
+            options: [
+                { text: "🤝 적극적으로 먼저 제안하고, 필요하면 직접 가르쳐줍니다.", value: 4 },
+                { text: "🗣️ 유용한 정보를 알게 되면 공유하지만, 주도적이지는 않습니다.", value: 3 },
+                { text: "🤔 요청이 있으면 공유하지만, 먼저 나서지는 않습니다.", value: 2 },
+                { text: "🔒 개인적인 노하우는 잘 공유하지 않습니다.", value: 1 }
+            ]
         }
+    ];
 
-        function renderQuestion() {
-            const q = questions[currentQuestionIndex];
-            questionText.innerText = q.text;
-            optionList.innerHTML = ""; // Clear previous options
-            selectedOptionValue = null; // Reset selected option
-            nextBtn.disabled = true; // Disable next button
+    const results = {
+        "디지털 마스터 튜터": {
+            minScore: 36,
+            maxScore: 40,
+            desc: "당신은 최신 디지털 기술과 교육 트렌드를 능숙하게 활용하는 선도적인 튜터입니다. 변화를 두려워하지 않고, 학생들의 학습 경험을 혁신하기 위해 끊임없이 탐구하고 적용하는 진정한 교육 혁신가입니다. 당신의 역량은 다른 튜터들에게도 큰 영감을 줍니다!",
+            icon: "psychology" // 또는 'rocket_launch', 'lightbulb'
+        },
+        "탐험가 튜터": {
+            minScore: 28,
+            maxScore: 35,
+            desc: "새로운 학습 도구나 방법론에 대한 호기심이 많고, 시도해보는 것을 즐기는 튜터입니다. 꾸준히 자신을 발전시키고 학생들에게 더 나은 경험을 제공하기 위해 노력합니다. 앞으로 디지털 역량을 더욱 강화한다면 마스터 튜터로 성장할 수 있습니다!",
+            icon: "explore" // 또는 'travel_explore', 'science'
+        },
+        "성장 중인 튜터": {
+            minScore: 20,
+            maxScore: 27,
+            desc: "디지털 교육의 중요성을 인지하고 있으며, 변화에 적응하고 성장하기 위해 노력하고 있는 튜터입니다. 아직은 익숙하지 않지만, 배우려는 의지가 강하여 점진적으로 역량을 향상시킬 수 있습니다. 작은 시도부터 시작해보는 것이 좋습니다!",
+            icon: "trending_up" // 또는 'school', 'emoji_objects'
+        },
+        "기본에 충실한 튜터": {
+            minScore: 10,
+            maxScore: 19,
+            desc: "기존의 검증된 튜터링 방식에 능숙하고 안정적인 수업을 지향하는 튜터입니다. 디지털 도구 활용에 다소 익숙하지 않을 수 있지만, 튜터로서의 본질적인 역량은 충분합니다. 새로운 기술을 천천히 접목하며 학생들과의 소통 방식을 넓혀간다면 더욱 풍부한 튜터링이 가능할 것입니다.",
+            icon: "bookmark" // 또는 'book', 'history_edu'
+        }
+    };
 
-            q.options.forEach((opt, i) => {
-                const optionDiv = document.createElement("div");
-                optionDiv.className = "option-container";
-                optionDiv.innerHTML = `
-                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-${i}">
-                        <input type="radio" id="option-${i}" class="mdl-radio__button" name="answer" value="${opt.value}" />
-                        <span class="mdl-radio__label">${opt.text}</span>
-                    </label>
-                `;
-                optionList.appendChild(optionDiv);
+    let currentQuestionIndex = 0;
+    let totalScore = 0;
+    let selectedOptionValue = null; // Track selected option value
 
-                // Add event listener to the custom div to handle selection
-                optionDiv.addEventListener('click', () => {
-                    // Remove 'selected' class from all options
-                    document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
-                    // Add 'selected' class to the clicked option
-                    optionDiv.classList.add('selected');
-                    // Manually check the radio button
-                    const radioButton = optionDiv.querySelector('input[type="radio"]');
-                    radioButton.checked = true;
-                    selectedOptionValue = parseInt(radioButton.value);
-                    nextBtn.disabled = false; // Enable next button when an option is selected
-                });
+    const quizContainer = document.getElementById("quizContainer");
+    const resultContainer = document.getElementById("resultContainer");
+    const questionText = document.getElementById("questionText");
+    const optionList = document.getElementById("optionList");
+    const nextBtn = document.getElementById("nextBtn");
+    const progressBar = document.getElementById("p2");
+
+    function updateProgressBar() {
+        const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+        progressBar.MaterialProgress.setProgress(progress);
+    }
+
+    function renderQuestion() {
+        const q = questions[currentQuestionIndex];
+        questionText.innerText = q.text;
+        optionList.innerHTML = ""; // Clear previous options
+        selectedOptionValue = null; // Reset selected option
+        nextBtn.disabled = true; // Disable next button
+
+        q.options.forEach((opt, i) => {
+            const optionDiv = document.createElement("div");
+            optionDiv.className = "option-container";
+            optionDiv.innerHTML = `
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-${i}">
+                    <input type="radio" id="option-${i}" class="mdl-radio__button" name="answer" value="${opt.value}" />
+                    <span class="mdl-radio__label">${opt.text}</span>
+                </label>
+            `;
+            optionList.appendChild(optionDiv);
+
+            // Add event listener to the custom div to handle selection
+            optionDiv.addEventListener('click', () => {
+                // Remove 'selected' class from all options
+                document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
+                // Add 'selected' class to the clicked option
+                optionDiv.classList.add('selected');
+                // Manually check the radio button
+                const radioButton = optionDiv.querySelector('input[type="radio"]');
+                radioButton.checked = true;
+                selectedOptionValue = parseInt(radioButton.value);
+                nextBtn.disabled = false; // Enable next button when an option is selected
             });
-
-            // Re-upgrade MDL components to ensure radios are styled
-            componentHandler.upgradeElements(optionList);
-            updateProgressBar();
-        }
-
-        nextBtn.addEventListener("click", () => {
-            if (selectedOptionValue === null) {
-                alert("답변을 선택해주세요."); // Should not happen with disabled button, but for safety
-                return;
-            }
-
-            totalScore += selectedOptionValue;
-            currentQuestionIndex++;
-
-            if (currentQuestionIndex < questions.length) {
-                renderQuestion();
-            } else {
-                showResult();
-            }
         });
 
-        function showResult() {
-            quizContainer.classList.add("hidden");
-            resultContainer.classList.remove("hidden");
+        // ⭐ 중요: 새로 추가된 MDL 컴포넌트(라디오 버튼)를 다시 업그레이드합니다.
+        // 이 부분이 없으면 동적으로 추가된 라디오 버튼에 MDL 스타일이 적용되지 않습니다.
+        componentHandler.upgradeElements(optionList);
+        updateProgressBar();
+    }
 
-            let resultType = "알 수 없는 유형";
-            let resultDesc = "결과를 계산하는 데 문제가 발생했습니다.";
-            let resultIcon = "error_outline";
-
-            for (const type in results) {
-                const r = results[type];
-                if (totalScore >= r.minScore && totalScore <= r.maxScore) {
-                    resultType = type;
-                    resultDesc = r.desc;
-                    resultIcon = r.icon;
-                    break;
-                }
-            }
-
-            document.getElementById("resultType").innerText = resultType;
-            document.getElementById("resultDesc").innerText = resultDesc;
-            document.getElementById("resultIcon").innerText = resultIcon;
+    nextBtn.addEventListener("click", () => {
+        if (selectedOptionValue === null) {
+            alert("답변을 선택해주세요."); // Should not happen with disabled button, but for safety
+            return;
         }
 
-        // Initial render
-        document.addEventListener('DOMContentLoaded', () => {
+        totalScore += selectedOptionValue;
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
             renderQuestion();
-            // Initialize progress bar
-            componentHandler.upgradeElement(progressBar);
-            progressBar.MaterialProgress.setProgress(0);
-        });
-    </script>
+        } else {
+            showResult();
+        }
+    });
+
+    function showResult() {
+        quizContainer.classList.add("hidden");
+        resultContainer.classList.remove("hidden");
+
+        let resultType = "알 수 없는 유형";
+        let resultDesc = "결과를 계산하는 데 문제가 발생했습니다.";
+        let resultIcon = "error_outline";
+
+        for (const type in results) {
+            const r = results[type];
+            if (totalScore >= r.minScore && totalScore <= r.maxScore) {
+                resultType = type;
+                resultDesc = r.desc;
+                resultIcon = r.icon;
+                break;
+            }
+        }
+
+        document.getElementById("resultType").innerText = resultType;
+        document.getElementById("resultDesc").innerText = resultDesc;
+        document.getElementById("resultIcon").innerText = resultIcon;
+    }
+
+    // ⭐ 초기화 함수: 퀴즈를 처음 상태로 되돌리고 첫 질문을 렌더링합니다.
+    function resetQuiz() {
+        currentQuestionIndex = 0;
+        totalScore = 0;
+        selectedOptionValue = null;
+        quizContainer.classList.remove("hidden");
+        resultContainer.classList.add("hidden");
+        renderQuestion();
+        progressBar.MaterialProgress.setProgress(0); // 프로그레스 바 초기화
+    }
+
+    // 시작 시 첫 질문 렌더링
+    document.addEventListener('DOMContentLoaded', () => {
+        renderQuestion();
+        // 프로그레스 바 초기화
+        componentHandler.upgradeElement(progressBar);
+        progressBar.MaterialProgress.setProgress(0);
+    });
+
+    // "다시 하기" 버튼에 resetQuiz 함수 연결
+    // HTML의 onclick="location.reload()" 대신 아래 함수를 연결합니다.
+    // HTML에서 <button class="mdl-button ..." onclick="resetQuiz()">다시 하기</button> 로 변경
+    // 또는 아래처럼 JavaScript에서 이벤트 리스너를 추가할 수 있습니다.
+    // (선택 사항: HTML 변경이 어렵다면 이 방법을 사용)
+    document.querySelector('#resultContainer button').addEventListener('click', resetQuiz);
+
+</script>
 </body>
 </html>
