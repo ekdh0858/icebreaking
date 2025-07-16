@@ -36,7 +36,7 @@
   <section id="intro">
     <h1>나는 디지털 선도 교사형인가?</h1>
     <p>간단한 테스트로 나의 교육 스타일을 알아보세요.</p>
-    <button onclick="startQuiz()">시작하기</button>
+    <button id="startBtn">시작하기</button>
   </section>
 
   <!-- Quiz -->
@@ -91,53 +91,53 @@
   <section id="result" style="display:none;">
     <h2>당신은 <span id="resultType"></span> 유형입니다!</h2>
     <p id="resultDesc"></p>
-    <button onclick="restartQuiz()">다시 하기</button>
+    <button id="restartBtn">다시 하기</button>
   </section>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-    function startQuiz() {
-      document.getElementById('intro').style.display = 'none';
-      document.getElementById('quiz').style.display = 'block';
-    }
+      const startBtn = document.getElementById('startBtn');
+      const restartBtn = document.getElementById('restartBtn');
+      const quizForm = document.getElementById('quizForm');
 
-    function restartQuiz() {
-      window.location.reload();
-    }
+      startBtn.addEventListener('click', function () {
+        document.getElementById('intro').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
+      });
 
-    // 전역 등록 (onclick에서 인식하도록)
-    window.startQuiz = startQuiz;
-    window.restartQuiz = restartQuiz;
+      restartBtn.addEventListener('click', function () {
+        window.location.reload();
+      });
 
-    document.getElementById('quizForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      let total = 0;
-      for (let [_, value] of formData.entries()) {
-        total += parseInt(value);
-      }
+      quizForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        let total = 0;
+        for (let [_, value] of formData.entries()) {
+          total += parseInt(value);
+        }
 
-      let type = '', desc = '';
-      if (total >= 20) {
-        type = '💡 디지털 마이스터';
-        desc = '디지털 도구에 능숙하고, 변화를 주도하는 교육 혁신가입니다!';
-      } else if (total >= 16) {
-        type = '🚀 탐험가 교사';
-        desc = '새로운 시도에 열려 있으며 꾸준히 성장하는 타입입니다.';
-      } else if (total >= 12) {
-        type = '📚 따라잡는 중 교사';
-        desc = '변화를 인식하고 적응해나가고 있는 중입니다.';
-      } else {
-        type = '🏫 전통 보수파 교사';
-        desc = '기존 방식에 익숙하지만, 변화의 필요성을 느끼고 있습니다.';
-      }
+        let type = '', desc = '';
+        if (total >= 20) {
+          type = '💡 디지털 마이스터';
+          desc = '디지털 도구에 능숙하고, 변화를 주도하는 교육 혁신가입니다!';
+        } else if (total >= 16) {
+          type = '🚀 탐험가 교사';
+          desc = '새로운 시도에 열려 있으며 꾸준히 성장하는 타입입니다.';
+        } else if (total >= 12) {
+          type = '📚 따라잡는 중 교사';
+          desc = '변화를 인식하고 적응해나가고 있는 중입니다.';
+        } else {
+          type = '🏫 전통 보수파 교사';
+          desc = '기존 방식에 익숙하지만, 변화의 필요성을 느끼고 있습니다.';
+        }
 
-      document.getElementById('quiz').style.display = 'none';
-      document.getElementById('resultType').innerText = type;
-      document.getElementById('resultDesc').innerText = desc;
-      document.getElementById('result').style.display = 'block';
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('resultType').innerText = type;
+        document.getElementById('resultDesc').innerText = desc;
+        document.getElementById('result').style.display = 'block';
+      });
     });
-  });
   </script>
 </body>
 </html>
