@@ -11,7 +11,7 @@
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #e8eaf6; /* Soft blue background */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,141 +19,235 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            transition: background-color 0.3s ease; /* Smooth background transition */
         }
 
         .mdl-card {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px; /* 조금 더 넓게 */
             margin: auto;
             text-align: center;
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            border-radius: 12px; /* Rounded corners */
+            overflow: hidden; /* Ensure content stays within border-radius */
+            box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+            transition: all 0.3s ease; /* Smooth transitions for card itself */
         }
 
         .mdl-card__title {
-            background-color: #3f51b5; /* Indigo */
+            background: linear-gradient(45deg, #3f51b5, #5c6bc0); /* Gradient Indigo */
             color: white;
             justify-content: center;
-            padding: 24px 16px;
+            padding: 30px 16px; /* More padding for a softer look */
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .mdl-card__title-text {
+            font-size: 2rem; /* Larger title */
+            font-weight: 700;
+            line-height: 1.2;
         }
 
         .mdl-card__supporting-text {
-            padding: 20px 30px;
+            padding: 30px 40px; /* More padding */
             text-align: left;
+            background-color: #ffffff; /* White background for content */
         }
 
         .mdl-card__actions {
             justify-content: flex-end;
-            padding: 16px;
+            padding: 20px; /* More padding */
+            background-color: #ffffff;
+            border-top: 1px solid #eee; /* Subtle separator */
         }
 
         .hidden {
             display: none !important;
         }
 
+        /* --- Option Styles --- */
         .option-container {
             margin-bottom: 15px;
             cursor: pointer;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
+            border: 1px solid #cfd8dc; /* Light blue-grey border */
+            border-radius: 8px; /* Slightly more rounded */
             transition: all 0.2s ease-in-out;
-            padding: 10px 15px;
-            background-color: #fff;
+            padding: 12px 20px; /* More padding for options */
+            background-color: #ffffff;
             display: flex;
             align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* Subtle shadow for options */
         }
 
         .option-container:hover {
-            background-color: #e8eaf6; /* Light Indigo */
-            border-color: #3f51b5;
+            background-color: #e3f2fd; /* Lighter blue on hover */
+            border-color: #90caf9; /* Blue 200 */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12); /* Slightly more prominent shadow on hover */
+            transform: translateY(-2px); /* Slight lift effect */
         }
 
         .option-container.selected {
-            background-color: #c5cae9; /* Lighter Indigo */
-            border-color: #3f51b5;
+            background-color: #c5cae9; /* Lighter Indigo for selected */
+            border-color: #3f51b5; /* Indigo for selected border */
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Stronger shadow when selected */
         }
 
         .mdl-radio__button {
-            margin-right: 10px;
+            margin-right: 15px; /* More space for radio button */
+            transform: scale(1.1); /* Slightly larger radio button */
+        }
+        .mdl-radio__label {
+            font-size: 1.1rem; /* Larger font for options */
+            color: #424242; /* Darker text for readability */
         }
 
         #progressBarContainer {
             width: 90%;
-            margin: 20px auto;
+            margin: 20px auto 30px; /* More margin below */
+        }
+        .mdl-progress.mdl-js-progress {
+            height: 8px; /* Thicker progress bar */
+        }
+        .mdl-progress > .progressbar {
+            background-color: #4caf50; /* Green progress bar */
+        }
+        .mdl-progress > .bufferbar {
+            background-color: #a5d6a7; /* Lighter green buffer */
         }
 
         #questionText {
-            font-size: 1.25rem;
-            margin-bottom: 25px;
+            font-size: 1.4rem; /* Larger question text */
+            margin-bottom: 30px;
             font-weight: 500;
-            line-height: 1.5;
+            line-height: 1.6;
+            color: #212121; /* Darker text for readability */
         }
 
+        /* --- Result Container Styles --- */
         #resultContainer {
-            padding: 30px;
+            padding: 40px;
         }
 
         #resultContainer h2 {
-            font-size: 1.8rem;
+            font-size: 2.2rem; /* Larger result title */
             color: #3f51b5;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
         #resultContainer p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #555;
+            font-size: 1.2rem; /* Larger result description */
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #424242; /* Darker text for readability */
         }
 
         .result-icon {
-            font-size: 4rem;
+            font-size: 5rem; /* Larger icon */
             color: #ff4081; /* Pink A200 */
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: block;
         }
 
-        /* Start Container Specific Styles */
+        /* --- Start Container Specific Styles --- */
         #startContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 50px; /* More padding */
         }
 
         #startContainer h2 {
-            font-size: 2rem;
+            font-size: 2.5rem; /* Even larger start title */
             color: #3f51b5;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
         }
 
         #startContainer p {
+            font-size: 1.25rem; /* Larger start description */
+            color: #555; /* Darker color for better contrast */
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* --- Button Styles --- */
+        .mdl-button--raised.mdl-button--colored {
+            background-color: #673ab7; /* Deep Purple for Next button */
+            color: white;
+            font-weight: 600;
+            padding: 0 24px; /* More padding */
+            height: 48px; /* Taller button */
+            line-height: 48px;
             font-size: 1.1rem;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            max-width: 400px;
+            border-radius: 24px; /* Pill shape */
+        }
+        .mdl-button--raised.mdl-button--accent {
+            background-color: #ff4081; /* Pink A200 for Start/Restart button */
+            color: white;
+            font-weight: 600;
+            padding: 0 28px; /* More padding */
+            height: 52px; /* Even taller button */
+            line-height: 52px;
+            font-size: 1.2rem;
+            border-radius: 26px; /* Pill shape */
+        }
+        .mdl-button.mdl-button--disabled {
+            background-color: #bdbdbd !important; /* Grey for disabled button */
+            color: #ffffff !important;
         }
 
         /* Responsive adjustments */
         @media (max-width: 650px) {
             .mdl-card {
                 margin: 10px;
+                border-radius: 8px;
             }
             .mdl-card__title {
-                padding: 16px;
+                padding: 20px 16px;
+                font-size: 1.5rem;
             }
-            #questionText {
-                font-size: 1.1rem;
-            }
-            .mdl-card__supporting-text {
-                padding: 15px 20px;
-            }
-            #startContainer h2 {
+            .mdl-card__title-text {
                 font-size: 1.8rem;
             }
-            #startContainer p {
+            #questionText {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+            .mdl-card__supporting-text {
+                padding: 20px 25px;
+            }
+            .option-container {
+                padding: 10px 15px;
+                margin-bottom: 10px;
+            }
+            .mdl-radio__label {
                 font-size: 1rem;
+            }
+            #startContainer h2 {
+                font-size: 2rem;
+            }
+            #startContainer p {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+            }
+            #resultContainer h2 {
+                font-size: 1.8rem;
+            }
+            #resultContainer p {
+                font-size: 1.1rem;
+            }
+            .result-icon {
+                font-size: 4rem;
+            }
+            .mdl-button--raised.mdl-button--accent,
+            .mdl-button--raised.mdl-button--colored {
+                height: 44px;
+                font-size: 1rem;
+                padding: 0 20px;
             }
         }
     </style>
@@ -330,7 +424,6 @@
         let totalScore = 0;
         let selectedOptionValue = null;
 
-        // 새로운 DOM 요소 참조
         const startContainer = document.getElementById("startContainer");
         const startButton = document.getElementById("startButton");
 
@@ -417,42 +510,31 @@
             document.getElementById("resultIcon").innerText = resultIcon;
         }
 
-        // 퀴즈 초기화 및 시작 화면으로 복귀
         function resetQuiz() {
             currentQuestionIndex = 0;
             totalScore = 0;
             selectedOptionValue = null;
             
-            // 모든 컨테이너 숨김
             quizContainer.classList.add("hidden");
             resultContainer.classList.add("hidden");
-            
-            // 시작 컨테이너 표시
             startContainer.classList.remove("hidden");
             
-            progressBar.MaterialProgress.setProgress(0); // 프로그레스 바 초기화
+            progressBar.MaterialProgress.setProgress(0);
         }
 
-        // '검사 시작하기' 버튼 클릭 이벤트 리스너
         startButton.addEventListener('click', () => {
-            startContainer.classList.add("hidden"); // 시작 화면 숨기기
-            quizContainer.classList.remove("hidden"); // 퀴즈 화면 보여주기
-            renderQuestion(); // 첫 질문 렌더링 시작
-            // 프로그레스 바를 다시 초기화하고 MDL 컴포넌트 업그레이드
+            startContainer.classList.add("hidden");
+            quizContainer.classList.remove("hidden");
+            renderQuestion();
             componentHandler.upgradeElement(progressBar);
             progressBar.MaterialProgress.setProgress(0);
         });
 
-        // 페이지 로드 시 시작 화면만 표시되도록 설정
         document.addEventListener('DOMContentLoaded', () => {
-            // 모든 컨테이너 숨김
             quizContainer.classList.add("hidden");
             resultContainer.classList.add("hidden");
-            
-            // 시작 컨테이너만 보이게 설정
             startContainer.classList.remove("hidden");
 
-            // 시작 버튼도 MDL 컴포넌트로 업그레이드 (선택 사항, CSS가 이미 적용되었을 수 있음)
             componentHandler.upgradeElement(startButton);
         });
     </script>
