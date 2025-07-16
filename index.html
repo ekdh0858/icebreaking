@@ -95,6 +95,7 @@
   </section>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
     function startQuiz() {
       document.getElementById('intro').style.display = 'none';
       document.getElementById('quiz').style.display = 'block';
@@ -104,10 +105,13 @@
       window.location.reload();
     }
 
+    // 전역 등록 (onclick에서 인식하도록)
+    window.startQuiz = startQuiz;
+    window.restartQuiz = restartQuiz;
+
     document.getElementById('quizForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
+      const formData = new FormData(e.target);
       let total = 0;
       for (let [_, value] of formData.entries()) {
         total += parseInt(value);
@@ -133,6 +137,7 @@
       document.getElementById('resultDesc').innerText = desc;
       document.getElementById('result').style.display = 'block';
     });
+  });
   </script>
 </body>
 </html>
