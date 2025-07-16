@@ -159,7 +159,7 @@
 
         #startContainer h2 {
             font-size: 2.5rem; /* Even larger start title */
-            color: #3f51b5;
+            color: #ffffff; /* White color for better contrast on indigo title */
             margin-bottom: 25px;
             font-weight: 700;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
@@ -167,11 +167,21 @@
 
         #startContainer p {
             font-size: 1.25rem; /* Larger start description */
-            color: #555; /* Darker color for better contrast */
+            color: #ffffff; /* White color for better contrast */
             line-height: 1.7;
             margin-bottom: 40px;
             max-width: 500px;
             text-align: center;
+        }
+
+        /* Ensure start container's supporting text and actions are white */
+        #startContainer .mdl-card__supporting-text {
+            background-color: #3f51b5; /* Match title background for seamless look */
+            color: white; /* Ensure text inside is white */
+        }
+        #startContainer .mdl-card__actions {
+            background-color: #3f51b5; /* Match title background */
+            border-top: none; /* No separator here */
         }
 
         /* --- Button Styles --- */
@@ -367,19 +377,19 @@
             {
                 text: "Q8. 온라인 플랫폼으로 자료를 제공하나요?",
                 options: [
-                    { text: "플랫폼을 자주 활용해 공유한다", value: 4 },
-                    { text: "가끔 자료를 업로드한다", value: 3 },
-                    { text: "학습지 정도만 공유한다", value: 2 },
-                    { text: "온라인 공유는 하지 않는다", value: 1 }
+                    { text: "🌐 플랫폼을 자주 활용해 공유합니다.", value: 4 },
+                    { text: "📁 가끔 자료를 업로드합니다.", value: 3 },
+                    { text: "📝 학습지 정도만 공유합니다.", value: 2 },
+                    { text: "🚫 온라인 공유는 하지 않습니다.", value: 1 }
                 ]
             },
             {
-                text: "Q9. 디지털 격차가 있는 학생을 위해?",
+                text: "Q9. 디지털 격차가 있는 학생을 위해 어떤 노력을 하시나요?",
                 options: [
-                    { text: "별도 안내와 보조자료를 제공한다", value: 4 },
-                    { text: "친절하게 설명해주려 노력한다", value: 3 },
-                    { text: "기본만 챙기려고 한다", value: 2 },
-                    { text: "어쩔 수 없는 일이라 생각한다", value: 1 }
+                    { text: "💡 별도 안내와 보조자료를 제공하고 개별 지도를 합니다.", value: 4 },
+                    { text: "🗣️ 친절하게 설명해주려 노력하며 이해를 돕습니다.", value: 3 },
+                    { text: "📏 기본만 챙기려고 노력하며 큰 개입은 하지 않습니다.", value: 2 },
+                    { text: "🤷‍♀️ 어쩔 수 없는 일이라 생각하며 크게 신경 쓰지 않습니다.", value: 1 }
                 ]
             },
             {
