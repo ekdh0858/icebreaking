@@ -14,9 +14,9 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #e8eaf6;
     display: flex;
-    flex-direction: column; /* Changed to column to allow footer at bottom */
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Allows elements to stack vertically */
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
     min-height: 100vh;
     margin: 0;
     padding: 20px;
@@ -32,7 +32,7 @@ body {
 .mdl-card {
     width: 100%;
     max-width: 650px;
-    margin: auto;
+    margin: auto; /* Centers the card horizontally */
     text-align: center;
     border-radius: 12px;
     overflow: hidden;
@@ -46,17 +46,14 @@ body {
     background: linear-gradient(45deg, #3f51b5, #5c6bc0);
     color: white;
     justify-content: center;
-    flex-direction: column; /* Allows logo and text to stack vertically */
     padding: 30px 16px;
     font-size: 1.8rem;
     font-weight: 700;
-    position: relative; /* For the small logo's absolute positioning */
 }
 .mdl-card__title-text {
     font-size: 2rem;
     font-weight: 700;
     line-height: 1.2;
-    margin-top: 15px; /* Space between logo and title text */
 }
 
 .mdl-card__supporting-text {
@@ -73,31 +70,27 @@ body {
 }
 
 /* 로고 스타일 */
-.elice-logo {
-    display: block;
-    margin: 0 auto; /* Centered horizontally */
+.elice-logo-top {
+    display: block; /* Ensures it takes up its own line */
+    margin-bottom: 25px; /* Space between logo and card */
     transition: all 0.3s ease;
+    flex-shrink: 0; /* Prevents logo from shrinking in flex container */
 }
 
 /* 시작 화면 로고 (크게) */
-#startContainer .elice-logo {
-    width: 200px; /* Adjust size as needed */
+#startScreenLogo {
+    width: 200px; /* Adjust large size as needed */
     height: auto;
-    margin-bottom: 10px; /* Space above title text */
 }
 
-/* 퀴즈 중 로고 (작게, 상단 왼쪽) */
-#quizContainer .elice-logo {
-    width: 40px; /* Smaller size for quiz screen */
+/* 퀴즈 중 로고 (작게) */
+#quizScreenLogo {
+    width: 50px; /* Adjust small size as needed */
     height: auto;
-    position: absolute; /* Position relative to .mdl-card__title */
-    top: 15px;
-    left: 15px;
-    margin: 0; /* Override auto margin */
-    z-index: 1; /* Ensure it's above the title text if needed */
+    /* This logo will be hidden by default and shown by JS */
 }
 
-/* Start screen improvements */
+/* 시작 화면 개선 */
 #startContainer {
     background: linear-gradient(135deg, #5c6bc0 0%, #3f51b5 100%);
     color: white;
@@ -278,7 +271,6 @@ body {
     }
     .mdl-card__title-text {
         font-size: 1.8rem;
-        margin-top: 10px; /* Adjust for smaller screens */
     }
     #questionText {
         font-size: 1.2rem;
@@ -316,23 +308,23 @@ body {
         font-size: 1rem;
         padding: 0 20px;
     }
-    /* Responsive adjustments for logos */
-    #startContainer .elice-logo {
+    #startScreenLogo {
         width: 150px;
     }
-    #quizContainer .elice-logo {
-        width: 30px;
-        top: 10px;
-        left: 10px;
+    #quizScreenLogo {
+        width: 40px;
     }
 }
     </style>
 </head>
 <body>
 
+    <img id="startScreenLogo" src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo-top">
+
+    <img id="quizScreenLogo" src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo-top hidden">
+
     <div id="startContainer" class="mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
-            <img src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo">
             <h2 class="mdl-card__title-text">✨ 나의 튜터 역량 테스트 ✨</h2>
         </div>
         <div class="mdl-card__supporting-text" style="text-align: center;">
@@ -348,7 +340,6 @@ body {
 
     <div id="quizContainer" class="mdl-card mdl-shadow--4dp hidden">
         <div class="mdl-card__title">
-            <img src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo">
             <h2 class="mdl-card__title-text">✨ 나의 튜터 역량은? ✨</h2>
         </div>
         <div class="mdl-card__supporting-text">
@@ -508,7 +499,8 @@ body {
 
         const startContainer = document.getElementById("startContainer");
         const startButton = document.getElementById("startButton");
-        // No longer need separate logo IDs as they are inside the cards
+        const startScreenLogo = document.getElementById("startScreenLogo");
+        const quizScreenLogo = document.getElementById("quizScreenLogo");
 
         const quizContainer = document.getElementById("quizContainer");
         const resultContainer = document.getElementById("resultContainer");
@@ -573,7 +565,7 @@ body {
         function showResult() {
             quizContainer.classList.add("hidden");
             resultContainer.classList.remove("hidden");
-            // No specific logo hiding needed here, as the result card takes over
+            quizScreenLogo.classList.add("hidden"); // Hide small logo on result screen
         }
 
         function resetQuiz() {
@@ -584,13 +576,17 @@ body {
             quizContainer.classList.add("hidden");
             resultContainer.classList.add("hidden");
             startContainer.classList.remove("hidden");
+            startScreenLogo.classList.remove("hidden"); // Show large logo again
+            quizScreenLogo.classList.add("hidden"); // Ensure small logo is hidden
             
             progressBar.MaterialProgress.setProgress(0);
         }
 
         startButton.addEventListener('click', () => {
             startContainer.classList.add("hidden");
+            startScreenLogo.classList.add("hidden"); // Hide large logo
             quizContainer.classList.remove("hidden");
+            quizScreenLogo.classList.remove("hidden"); // Show small logo
             renderQuestion();
             componentHandler.upgradeElement(progressBar);
             progressBar.MaterialProgress.setProgress(0);
@@ -600,6 +596,8 @@ body {
             quizContainer.classList.add("hidden");
             resultContainer.classList.add("hidden");
             startContainer.classList.remove("hidden");
+            startScreenLogo.classList.remove("hidden"); // Ensure large logo is visible on load
+            quizScreenLogo.classList.add("hidden"); // Ensure small logo is hidden on load
 
             componentHandler.upgradeElement(startButton);
         });
