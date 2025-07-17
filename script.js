@@ -154,7 +154,7 @@ showStatsBtn.addEventListener('click', () => {
   resultContainer.classList.add("hidden");
   statsContainer.classList.remove("hidden");
 
-  fetch("https://script.google.com/macros/s/AKfycbxo7abj6mKctCbeJJWPZPPwDnHVmmMrCAdJDJnwr8m5oRqKgc5eKBoPuWSMRBq3K0t3/exec")
+  fetch("https://script.google.com/macros/s/AKfycbwRosnahFp_pZtOJK3Mak3gNntzvdIG1Af5wkRBvGEKk7XraPW7EcwbHNAs-xkYLyzJ/exec")
     .then(res => res.json())
     .then(data => {
       statsList.innerHTML = '';
@@ -232,6 +232,15 @@ function showResult() {
       resultTypeElem.innerText = type;
       resultDescElem.innerText = info.desc;
       resultIconElem.innerText = info.icon;
+
+      // 결과를 Google Apps Script로 전송
+      fetch("https://script.google.com/macros/s/AKfycbwRosnahFp_pZtOJK3Mak3gNntzvdIG1Af5wkRBvGEKk7XraPW7EcwbHNAs-xkYLyzJ/exec", {
+        method: "POST",
+        body: JSON.stringify({ result: type })
+      })
+      .then(res => res.text())
+      .then(console.log)
+      .catch(console.error);                  
       break;
     }
   }
