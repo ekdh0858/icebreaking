@@ -70,6 +70,7 @@ body {
   box-shadow: 0 6px 14px rgba(255,64,129,0.5);
 }
 .option-container {
+  width: 100%
   font-size: 1.05rem;
   margin-bottom: 12px;
   border: 1px solid #cfd8dc;
@@ -114,6 +115,9 @@ body {
   font-size: 0.9rem;
   color: #757575;
   padding: 16px 0;
+}
+#optionList {
+  width: 100%;
 }
 @media (max-width: 650px) {
   .mdl-card {
