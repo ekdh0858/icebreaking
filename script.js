@@ -122,23 +122,16 @@ const questions = [
 let currentQuestionIndex = 0;
 let totalScore = 0;
 
-// 요소 가져오기
 const startContainer = document.getElementById("startContainer");
-const quizContainer = document.getElementById("quizContainer");
-const resultContainer = document.getElementById("resultContainer");
-const statsContainer = document.getElementById("statsContainer");
-
-const questionText = document.getElementById("questionText");
-const optionList = document.getElementById("optionList");
 const startButton = document.getElementById("startButton");
-const showStatsBtn = document.getElementById("showStatsBtn");
-const statsList = document.getElementById("statsList");
-const statsChartCanvas = document.getElementById("statsChart");
-
 const startScreenLogo = document.getElementById("startScreenLogo");
 const quizScreenLogo = document.getElementById("quizScreenLogo");
 
-// 설문 시작
+const quizContainer = document.getElementById("quizContainer");
+const resultContainer = document.getElementById("resultContainer");
+const questionText = document.getElementById("questionText");
+const optionList = document.getElementById("optionList");
+
 startButton.addEventListener('click', () => {
   startContainer.classList.add("hidden");
   startScreenLogo.classList.add("hidden");
@@ -147,47 +140,6 @@ startButton.addEventListener('click', () => {
   renderQuestion();
 });
 
-// 통계 보기
-// showStatsBtn.addEventListener('click', () => {
-//   startContainer.classList.add("hidden");
-//   quizContainer.classList.add("hidden");
-//   resultContainer.classList.add("hidden");
-//   statsContainer.classList.remove("hidden");
-
-//   fetch("https://script.google.com/macros/s/AKfycbwRosnahFp_pZtOJK3Mak3gNntzvdIG1Af5wkRBvGEKk7XraPW7EcwbHNAs-xkYLyzJ/exec")
-//     .then(res => res.json())
-//     .then(data => {
-//       statsList.innerHTML = '';
-//       data.forEach(item => {
-//         const li = document.createElement('li');
-//         li.textContent = `${item.type}: ${item.count}명 (${item.percent}%)`;
-//         statsList.appendChild(li);
-//       });
-
-//       new Chart(statsChartCanvas, {
-//         type: 'bar',
-//         data: {
-//           labels: data.map(d => d.type),
-//           datasets: [{
-//             label: '응답 수',
-//             data: data.map(d => d.count),
-//             backgroundColor: '#7986cb'
-//           }]
-//         },
-//         options: {
-//           responsive: true,
-//           plugins: {
-//             legend: { display: false }
-//           },
-//           scales: {
-//             y: { beginAtZero: true }
-//           }
-//         }
-//       });
-//     });
-// });
-
-// 질문 렌더링
 function renderQuestion() {
   const progressText = document.getElementById("progressText");
   const progressBar = document.getElementById("progressBar");
@@ -216,7 +168,6 @@ function renderQuestion() {
   });
 }
 
-// 결과 표시
 function showResult() {
   quizContainer.classList.add("hidden");
   resultContainer.classList.remove("hidden");
@@ -232,35 +183,17 @@ function showResult() {
       resultTypeElem.innerText = type;
       resultDescElem.innerText = info.desc;
       resultIconElem.innerText = info.icon;
-
-      // 결과를 Google Apps Script로 전송
-      fetch("https://script.google.com/macros/s/AKfycbwRosnahFp_pZtOJK3Mak3gNntzvdIG1Af5wkRBvGEKk7XraPW7EcwbHNAs-xkYLyzJ/exec", {
-        method: "POST",
-        body: JSON.stringify({ result: type })
-      })
-      .then(res => res.text())
-      .then(console.log)
-      .catch(console.error);                  
       break;
     }
   }
 }
 
-// 다시 시작
 function resetQuiz() {
   currentQuestionIndex = 0;
   totalScore = 0;
   quizContainer.classList.add("hidden");
   resultContainer.classList.add("hidden");
-  statsContainer.classList.add("hidden");
   startContainer.classList.remove("hidden");
   startScreenLogo.classList.remove("hidden");
   quizScreenLogo.classList.add("hidden");
-}
-
-// 통계에서 홈으로 돌아가기
-function goToHome() {
-  statsContainer.classList.add("hidden");
-  startContainer.classList.remove("hidden");
-  startScreenLogo.classList.remove("hidden");
 }
