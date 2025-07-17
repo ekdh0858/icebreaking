@@ -14,6 +14,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #e8eaf6;
     display: flex;
+    flex-direction: column; /* Changed to column to allow footer at bottom */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -104,7 +105,7 @@ body {
 #startContainer .mdl-card__supporting-text,
 #startContainer .mdl-card__actions {
     background-color: transparent !important; /* 배경을 투명하게 */
-    border-top: none !important;              /* 구분선 제거 */
+    border-top: none !important;           /* 구분선 제거 */
     box-shadow: none !important;
 }
 
@@ -218,6 +219,15 @@ body {
     display: block;
 }
 
+/* 저작권 표시 */
+.footer-copyright {
+    margin-top: 30px;
+    color: #757575; /* A subtle grey */
+    font-size: 0.9rem;
+    text-align: center;
+    width: 100%;
+}
+
 /* 애니메이션 */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
@@ -278,9 +288,8 @@ body {
         padding: 0 20px;
     }
 }
-
     </style>
-       
+        
 </head>
 <body>
 
@@ -327,6 +336,10 @@ body {
                 다시 하기
             </button>
         </div>
+    </div>
+
+    <div class="footer-copyright">
+        <p>&copy; 2025 (주)엘리스. All rights reserved.</p>
     </div>
 
     <script>
