@@ -1,4 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 const questions = [
             {
                 text: "Q1. 새로운 학습 도구(AI, 온라인 플랫폼 등)가 소개되면 어떤 반응을 보이시나요?",
@@ -122,85 +122,23 @@ const questions = [
 let currentQuestionIndex = 0;
 let totalScore = 0;
 
+// 요소 가져오기
 const startContainer = document.getElementById("startContainer");
+const quizContainer = document.getElementById("quizContainer");
+const resultContainer = document.getElementById("resultContainer");
+const statsContainer = document.getElementById("statsContainer");
+
+const questionText = document.getElementById("questionText");
+const optionList = document.getElementById("optionList");
 const startButton = document.getElementById("startButton");
+const showStatsBtn = document.getElementById("showStatsBtn");
+const statsList = document.getElementById("statsList");
+const statsChartCanvas = document.getElementById("statsChart");
+
 const startScreenLogo = document.getElementById("startScreenLogo");
 const quizScreenLogo = document.getElementById("quizScreenLogo");
 
-const quizContainer = document.getElementById("quizContainer");
-const resultContainer = document.getElementById("resultContainer");
-const questionText = document.getElementById("questionText");
-const optionList = document.getElementById("optionList");
-
-function renderQuestion() {
-  const progressText = document.getElementById("progressText");
-  const progressBar = document.getElementById("progressBar");
-  progressText.innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
-  const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
-  progressBar.style.width = `${progressPercent}%`;
-
-  const q = questions[currentQuestionIndex];
-  questionText.innerText = q.text;
-  optionList.innerHTML = "";
-
-  q.options.forEach((opt) => {
-  const optionDiv = document.createElement("div");
-  optionDiv.className = "option-container";
-  optionDiv.innerText = opt.text;
-  optionList.appendChild(optionDiv);
-
-  optionDiv.addEventListener('click', () => {
-    totalScore += opt.value;
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-      renderQuestion();
-    } else {
-      showResult();
-    }
-  });
-});
-
-}
-
-function showResult() {
-  quizContainer.classList.add("hidden");
-  resultContainer.classList.remove("hidden");
-  quizScreenLogo.classList.add("hidden");
-
-  const resultTypeElem = document.getElementById("resultType");
-  const resultDescElem = document.getElementById("resultDesc");
-  const resultIconElem = document.getElementById("resultIcon");
-
-  for (const type in results) {
-    const info = results[type];
-    if (totalScore >= info.minScore && totalScore <= info.maxScore) {
-      resultTypeElem.innerText = type;
-      resultDescElem.innerText = info.desc;
-      resultIconElem.innerText = info.icon;
-
-      // 결과를 Google Apps Script로 전송
-      fetch("https://script.google.com/macros/s/AKfycbx2IN9JfJQI9E2XABPcgNHd7QiqstU4KW19kAYNlXJtSKGeWOAJQFsdB11XE-p_qUg/exec", {
-        method: "POST",
-        body: JSON.stringify({ result: type })
-      })
-      .then(res => res.text())
-      .then(console.log)
-      .catch(console.error);          
-      break;
-    }
-  }
-}
-
-function resetQuiz() {
-  currentQuestionIndex = 0;
-  totalScore = 0;
-  quizContainer.classList.add("hidden");
-  resultContainer.classList.add("hidden");
-  startContainer.classList.remove("hidden");
-  startScreenLogo.classList.remove("hidden");
-  quizScreenLogo.classList.add("hidden");
-}
-
+// 설문 시작
 startButton.addEventListener('click', () => {
   startContainer.classList.add("hidden");
   startScreenLogo.classList.add("hidden");
@@ -208,21 +146,17 @@ startButton.addEventListener('click', () => {
   quizScreenLogo.classList.remove("hidden");
   renderQuestion();
 });
-const statsContainer = document.getElementById("statsContainer");
-const statsList = document.getElementById("statsList");
-const statsChartCanvas = document.getElementById("statsChart");
-const showStatsBtn = document.getElementById("showStatsBtn");
 
+// 통계 보기
 showStatsBtn.addEventListener('click', () => {
   startContainer.classList.add("hidden");
   quizContainer.classList.add("hidden");
   resultContainer.classList.add("hidden");
   statsContainer.classList.remove("hidden");
 
-  fetch("https://script.google.com/macros/s/AKfycbx2IN9JfJQI9E2XABPcgNHd7QiqstU4KW19kAYNlXJtSKGeWOAJQFsdB11XE-p_qUg/exec")
+  fetch("https://script.google.com/macros/s/AKfycbxo7abj6mKctCbeJJWPZPPwDnHVmmMrCAdJDJnwr8m5oRqKgc5eKBoPuWSMRBq3K0t3/exec")
     .then(res => res.json())
     .then(data => {
-      // 리스트 렌더링
       statsList.innerHTML = '';
       data.forEach(item => {
         const li = document.createElement('li');
@@ -230,7 +164,6 @@ showStatsBtn.addEventListener('click', () => {
         statsList.appendChild(li);
       });
 
-      // 차트 렌더링
       new Chart(statsChartCanvas, {
         type: 'bar',
         data: {
@@ -253,3 +186,72 @@ showStatsBtn.addEventListener('click', () => {
       });
     });
 });
+
+// 질문 렌더링
+function renderQuestion() {
+  const progressText = document.getElementById("progressText");
+  const progressBar = document.getElementById("progressBar");
+  progressText.innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
+  progressBar.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+
+  const q = questions[currentQuestionIndex];
+  questionText.innerText = q.text;
+  optionList.innerHTML = "";
+
+  q.options.forEach((opt) => {
+    const optionDiv = document.createElement("div");
+    optionDiv.className = "option-container";
+    optionDiv.innerText = opt.text;
+    optionList.appendChild(optionDiv);
+
+    optionDiv.addEventListener('click', () => {
+      totalScore += opt.value;
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    });
+  });
+}
+
+// 결과 표시
+function showResult() {
+  quizContainer.classList.add("hidden");
+  resultContainer.classList.remove("hidden");
+  quizScreenLogo.classList.add("hidden");
+
+  const resultTypeElem = document.getElementById("resultType");
+  const resultDescElem = document.getElementById("resultDesc");
+  const resultIconElem = document.getElementById("resultIcon");
+
+  for (const type in results) {
+    const info = results[type];
+    if (totalScore >= info.minScore && totalScore <= info.maxScore) {
+      resultTypeElem.innerText = type;
+      resultDescElem.innerText = info.desc;
+      resultIconElem.innerText = info.icon;
+      break;
+    }
+  }
+}
+
+// 다시 시작
+function resetQuiz() {
+  currentQuestionIndex = 0;
+  totalScore = 0;
+  quizContainer.classList.add("hidden");
+  resultContainer.classList.add("hidden");
+  statsContainer.classList.add("hidden");
+  startContainer.classList.remove("hidden");
+  startScreenLogo.classList.remove("hidden");
+  quizScreenLogo.classList.add("hidden");
+}
+
+// 통계에서 홈으로 돌아가기
+function goToHome() {
+  statsContainer.classList.add("hidden");
+  startContainer.classList.remove("hidden");
+  startScreenLogo.classList.remove("hidden");
+}
