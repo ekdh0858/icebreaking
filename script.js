@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 const questions = [
             {
                 text: "Q1. 새로운 학습 도구(AI, 온라인 플랫폼 등)가 소개되면 어떤 반응을 보이시나요?",
@@ -178,7 +179,7 @@ function showResult() {
       resultIconElem.innerText = info.icon;
 
       // 결과를 Google Apps Script로 전송
-      fetch("https://script.google.com/macros/s/AKfycbxo7abj6mKctCbeJJWPZPPwDnHVmmMrCAdJDJnwr8m5oRqKgc5eKBoPuWSMRBq3K0t3/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbx2IN9JfJQI9E2XABPcgNHd7QiqstU4KW19kAYNlXJtSKGeWOAJQFsdB11XE-p_qUg/exec", {
         method: "POST",
         body: JSON.stringify({ result: type })
       })
@@ -206,4 +207,49 @@ startButton.addEventListener('click', () => {
   quizContainer.classList.remove("hidden");
   quizScreenLogo.classList.remove("hidden");
   renderQuestion();
+});
+const statsContainer = document.getElementById("statsContainer");
+const statsList = document.getElementById("statsList");
+const statsChartCanvas = document.getElementById("statsChart");
+const showStatsBtn = document.getElementById("showStatsBtn");
+
+showStatsBtn.addEventListener('click', () => {
+  startContainer.classList.add("hidden");
+  quizContainer.classList.add("hidden");
+  resultContainer.classList.add("hidden");
+  statsContainer.classList.remove("hidden");
+
+  fetch("https://script.google.com/macros/s/AKfycbx2IN9JfJQI9E2XABPcgNHd7QiqstU4KW19kAYNlXJtSKGeWOAJQFsdB11XE-p_qUg/exec")
+    .then(res => res.json())
+    .then(data => {
+      // 리스트 렌더링
+      statsList.innerHTML = '';
+      data.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.type}: ${item.count}명 (${item.percent}%)`;
+        statsList.appendChild(li);
+      });
+
+      // 차트 렌더링
+      new Chart(statsChartCanvas, {
+        type: 'bar',
+        data: {
+          labels: data.map(d => d.type),
+          datasets: [{
+            label: '응답 수',
+            data: data.map(d => d.count),
+            backgroundColor: '#7986cb'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    });
 });
