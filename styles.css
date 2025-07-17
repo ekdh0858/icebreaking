@@ -70,22 +70,20 @@ body {
   box-shadow: 0 6px 14px rgba(255,64,129,0.5);
 }
 .option-container {
-  width: 100%;
-  font-size: 1.05rem;
+  min-width: 430px;     
+  max-width: 100%;       
+  width: auto;           
+  display: inline-block; 
   margin-bottom: 12px;
-  border: 1px solid #cfd8dc;
-  border-radius: 8px;
   padding: 16px;
   background-color: #fff;
-  color : black;
-  cursor: pointer;
-  word-break: break-word;
-  white-space: normal;
+  color: black;
+  font-size: 1.05rem;
+  border: 1px solid #cfd8dc;
+  border-radius: 8px;
   line-height: 1.6;
-  box-sizing: border-box;
   text-align: left;
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
   transition: background-color 0.2s ease;
 }
 .option-container.selected {
@@ -130,7 +128,10 @@ body {
     font-size: 1.6rem;
   }
   .option-container {
-    padding: 14px;
+    width: 100%;
+    min-width: unset;
+    max-width: unset;
+    display: block;
     font-size: 0.95rem;
   }
 }
