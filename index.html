@@ -14,7 +14,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #e8eaf6;
     display: flex;
-    flex-direction: column; /* Changed to column to allow footer at bottom */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -49,7 +49,7 @@ body {
     padding: 30px 16px;
     font-size: 1.8rem;
     font-weight: 700;
-    position: relative; /* For logo positioning */
+    position: relative;
 }
 .mdl-card__title-text {
     font-size: 2rem;
@@ -73,25 +73,27 @@ body {
 /* 로고 스타일 */
 .elice-logo {
     display: block;
-    margin: 0 auto 30px; /* Centered, with space below */
+    margin-bottom: 20px; /* Space between logo and card */
     transition: all 0.3s ease;
 }
 
 /* 시작 화면 로고 */
-#startContainer .elice-logo {
+#startScreenLogo {
     width: 250px; /* Large size for start screen */
     height: auto;
 }
 
-/* 퀴즈 중 작은 로고 */
-#quizContainer .elice-logo {
-    position: absolute;
-    top: 15px;
-    left: 15px;
+/* 퀴즈 중 작은 로고 (초기에는 숨김) */
+#quizScreenLogo {
     width: 50px; /* Small size for quiz screen */
     height: auto;
-    margin: 0; /* Override margin from general logo style */
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to body, or top of relevant container if moved */
+    top: 20px;
+    left: 20px;
+    z-index: 10; /* Ensure it's above other elements if needed */
 }
+
 
 /* 시작 화면 개선 */
 #startContainer {
@@ -311,7 +313,7 @@ body {
         font-size: 1rem;
         padding: 0 20px;
     }
-    #quizContainer .elice-logo {
+    #quizScreenLogo {
         top: 10px;
         left: 10px;
         width: 40px;
@@ -321,9 +323,12 @@ body {
 </head>
 <body>
 
+    <img id="startScreenLogo" src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo">
+
+    <img id="quizScreenLogo" src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo">
+
     <div id="startContainer" class="mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
-            <img src="YOUR_LARGE_LOGO_IMAGE_URL_HERE" alt="Elice Logo" class="elice-logo">
             <h2 class="mdl-card__title-text">✨ 나의 튜터 역량 테스트 ✨</h2>
         </div>
         <div class="mdl-card__supporting-text" style="text-align: center;">
@@ -339,7 +344,6 @@ body {
 
     <div id="quizContainer" class="mdl-card mdl-shadow--4dp hidden">
         <div class="mdl-card__title">
-            <img src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice Logo" class="elice-logo">
             <h2 class="mdl-card__title-text">✨ 나의 튜터 역량은? ✨</h2>
         </div>
         <div class="mdl-card__supporting-text">
@@ -416,7 +420,7 @@ body {
                     { text: "💡 스스로 검색하거나 해결책을 찾아 능숙하게 대처합니다.", value: 4 },
                     { text: "🤔 간단한 문제는 해결하지만, 복잡하면 도움을 요청합니다.", value: 3 },
                     { text: "🤷‍♀️ 기술적인 문제는 다른 사람에게 전적으로 의존하는 편입니다.", value: 2 },
-                    { text: "🙅‍♀️ 기술 문제 해결 자체에 부담을 느낍.", value: 1 }
+                    { text: "🙅‍♀️ 기술 문제 해결 자체에 부담을 느낍니다.", value: 1 }
                 ]
             },
             {
@@ -499,6 +503,8 @@ body {
 
         const startContainer = document.getElementById("startContainer");
         const startButton = document.getElementById("startButton");
+        const startScreenLogo = document.getElementById("startScreenLogo");
+        const quizScreenLogo = document.getElementById("quizScreenLogo");
 
         const quizContainer = document.getElementById("quizContainer");
         const resultContainer = document.getElementById("resultContainer");
@@ -563,6 +569,7 @@ body {
         function showResult() {
             quizContainer.classList.add("hidden");
             resultContainer.classList.remove("hidden");
+            quizScreenLogo.classList.add("hidden"); // Hide small logo on result screen
 
             let resultType = "알 수 없는 유형";
             let resultDesc = "결과를 계산하는 데 문제가 발생했습니다.";
@@ -591,13 +598,17 @@ body {
             quizContainer.classList.add("hidden");
             resultContainer.classList.add("hidden");
             startContainer.classList.remove("hidden");
+            startScreenLogo.classList.remove("hidden"); // Show large logo again
+            quizScreenLogo.classList.add("hidden"); // Ensure small logo is hidden
             
             progressBar.MaterialProgress.setProgress(0);
         }
 
         startButton.addEventListener('click', () => {
             startContainer.classList.add("hidden");
+            startScreenLogo.classList.add("hidden"); // Hide large logo
             quizContainer.classList.remove("hidden");
+            quizScreenLogo.classList.remove("hidden"); // Show small logo
             renderQuestion();
             componentHandler.upgradeElement(progressBar);
             progressBar.MaterialProgress.setProgress(0);
@@ -607,6 +618,8 @@ body {
             quizContainer.classList.add("hidden");
             resultContainer.classList.add("hidden");
             startContainer.classList.remove("hidden");
+            startScreenLogo.classList.remove("hidden"); // Ensure large logo is visible on load
+            quizScreenLogo.classList.add("hidden"); // Ensure small logo is hidden on load
 
             componentHandler.upgradeElement(startButton);
         });
