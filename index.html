@@ -190,6 +190,12 @@
       </div>
       <div class="mdl-card__supporting-text">
         <p id="questionText">질문이 여기에 표시됩니다.</p>
+        <div style="padding: 0 24px 12px 24px;">
+        <div id="progressText" style="font-size: 1rem; margin-bottom: 8px; text-align: right;">1 / 10</div>
+          <div style="background-color: #ccc; border-radius: 20px; overflow: hidden; height: 12px;">
+            <div id="progressBar" style="height: 12px; background-color: #3f51b5; width: 0%; transition: width 0.3s;"></div>
+          </div>
+        </div>
         <div id="optionList"></div>
       </div>
     </div>
@@ -345,6 +351,13 @@
     const optionList = document.getElementById("optionList");
 
     function renderQuestion() {
+      // 진행도 업데이트
+      const progressText = document.getElementById("progressText");
+      const progressBar = document.getElementById("progressBar");
+      progressText.innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
+      const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+      
       const q = questions[currentQuestionIndex];
       questionText.innerText = q.text;
       optionList.innerHTML = "";
