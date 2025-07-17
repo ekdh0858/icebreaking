@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <style>
-    #nextBtn {
-    display: none;
-  }
     body {
       font-family: 'Noto Sans KR', sans-serif;
       background-color: #e8eaf6;
@@ -108,7 +105,6 @@
       text-align: left;
       display: flex;
       flex-direction: column;
-      gap: 8px;
       transition: background-color 0.2s ease;
     }
 
@@ -129,14 +125,14 @@
       line-height: 1.6;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
     .result-icon {
       font-size: 4rem;
       color: #ff4081;
       margin-bottom: 20px;
-    }
-
-    .hidden {
-      display: none !important;
     }
 
     .footer-copyright {
@@ -195,11 +191,6 @@
       <div class="mdl-card__supporting-text">
         <p id="questionText">질문이 여기에 표시됩니다.</p>
         <div id="optionList"></div>
-      </div>
-      <div class="mdl-card__actions">
-        <button id="nextBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" disabled>
-          다음
-        </button>
       </div>
     </div>
 
@@ -342,7 +333,6 @@
 
     let currentQuestionIndex = 0;
     let totalScore = 0;
-    let selectedOptionValue = null;
 
     const startContainer = document.getElementById("startContainer");
     const startButton = document.getElementById("startButton");
@@ -353,14 +343,11 @@
     const resultContainer = document.getElementById("resultContainer");
     const questionText = document.getElementById("questionText");
     const optionList = document.getElementById("optionList");
-    const nextBtn = document.getElementById("nextBtn");
 
     function renderQuestion() {
       const q = questions[currentQuestionIndex];
       questionText.innerText = q.text;
       optionList.innerHTML = "";
-      selectedOptionValue = null;
-      nextBtn.disabled = true;
 
       q.options.forEach((opt, i) => {
         const optionDiv = document.createElement("div");
@@ -374,36 +361,25 @@
         optionList.appendChild(optionDiv);
 
         optionDiv.addEventListener('click', () => {
-  document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
-  optionDiv.classList.add('selected');
-  const radioButton = optionDiv.querySelector('input[type="radio"]');
-  radioButton.checked = true;
-  selectedOptionValue = parseInt(radioButton.value);
+          document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
+          optionDiv.classList.add('selected');
 
-  totalScore += selectedOptionValue;
-  currentQuestionIndex++;
+          const radio = optionDiv.querySelector('input[type="radio"]');
+          radio.checked = true;
 
-  if (currentQuestionIndex < questions.length) {
-    renderQuestion();
-  } else {
-    showResult();
-  }
-});
+          totalScore += parseInt(radio.value);
+          currentQuestionIndex++;
+
+          if (currentQuestionIndex < questions.length) {
+            renderQuestion();
+          } else {
+            showResult();
+          }
+        });
+      });
 
       componentHandler.upgradeElements(optionList);
     }
-
-    nextBtn.addEventListener("click", () => {
-      if (selectedOptionValue === null) return;
-      totalScore += selectedOptionValue;
-      currentQuestionIndex++;
-
-      if (currentQuestionIndex < questions.length) {
-        renderQuestion();
-      } else {
-        showResult();
-      }
-    });
 
     function showResult() {
       quizContainer.classList.add("hidden");
@@ -428,7 +404,6 @@
     function resetQuiz() {
       currentQuestionIndex = 0;
       totalScore = 0;
-      selectedOptionValue = null;
       quizContainer.classList.add("hidden");
       resultContainer.classList.add("hidden");
       startContainer.classList.remove("hidden");
@@ -442,12 +417,6 @@
       quizContainer.classList.remove("hidden");
       quizScreenLogo.classList.remove("hidden");
       renderQuestion();
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      quizContainer.classList.add("hidden");
-      resultContainer.classList.add("hidden");
-      startContainer.classList.remove("hidden");
     });
   </script>
 </body>
