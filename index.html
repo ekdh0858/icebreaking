@@ -391,10 +391,25 @@
         });
 
         function showResult() {
-            quizContainer.classList.add("hidden");
-            resultContainer.classList.remove("hidden");
-            quizScreenLogo.classList.add("hidden"); // Hide small logo on result screen
+    quizContainer.classList.add("hidden");
+    resultContainer.classList.remove("hidden");
+    quizScreenLogo.classList.add("hidden");
+
+    // 🔥 [추가된 로직] 점수에 따라 결과 유형 결정하고 텍스트 출력
+    const resultTypeElem = document.getElementById("resultType");
+    const resultDescElem = document.getElementById("resultDesc");
+    const resultIconElem = document.getElementById("resultIcon");
+
+    for (const type in results) {
+        const info = results[type];
+        if (totalScore >= info.minScore && totalScore <= info.maxScore) {
+            resultTypeElem.innerText = type;
+            resultDescElem.innerText = info.desc;
+            resultIconElem.innerText = info.icon;
+            break;
         }
+    }
+}
 
         function resetQuiz() {
             currentQuestionIndex = 0;
