@@ -7,7 +7,7 @@ const questions = [
                     { text: "🤝 다른 튜터가 사용하는 것을 보고 괜찮으면 따라 합니다.", value: 2 },
                     { text: "🔄 기존에 사용하던 익숙한 도구를 선호합니다.", value: 1 }
                 ]
-            },
+            },{},
             {
                 text: "Q2. 튜터링 자료 준비 시, 디지털 도구(템플릿, 그래픽 툴 등) 활용 빈도는?",
                 options: [
@@ -142,44 +142,23 @@ function renderQuestion() {
   questionText.innerText = q.text;
   optionList.innerHTML = "";
 
-  q.options.forEach((opt, i) => {
+  q.options.forEach((opt) => {
   const optionDiv = document.createElement("div");
   optionDiv.className = "option-container";
-  optionDiv.innerHTML = `
-    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-${i}">
-      <input type="radio" id="option-${i}" class="mdl-radio__button" name="answer" value="${opt.value}" />
-      <span class="mdl-radio__label">${opt.text}</span>
-    </label>
-  `;
+  optionDiv.innerText = opt.text;
   optionList.appendChild(optionDiv);
 
-  let clicked = false; // 💡 중복 클릭 방지
-
   optionDiv.addEventListener('click', () => {
-    if (clicked) return; // 두 번 클릭되면 무시
-    clicked = true;
-
-    document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
-    optionDiv.classList.add('selected');
-
-    const radio = optionDiv.querySelector('input[type="radio"]');
-    radio.checked = true;
-
-    totalScore += parseInt(radio.value);
+    totalScore += opt.value;
     currentQuestionIndex++;
-
-    setTimeout(() => {
-      if (currentQuestionIndex < questions.length) {
-        renderQuestion();
-      } else {
-        showResult();
-      }
-    }, 300);
+    if (currentQuestionIndex < questions.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
   });
 });
 
-
-  componentHandler.upgradeElements(optionList);
 }
 
 function showResult() {
