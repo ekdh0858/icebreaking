@@ -143,24 +143,26 @@ function renderQuestion() {
   optionList.innerHTML = "";
 
   q.options.forEach((opt, i) => {
-    const optionDiv = document.createElement("div");
-    optionDiv.className = "option-container";
-    optionDiv.innerHTML = `
-      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-${i}">
-        <input type="radio" id="option-${i}" class="mdl-radio__button" name="answer" value="${opt.value}" />
-        <span class="mdl-radio__label">${opt.text}</span>
-      </label>
-    `;
-    optionList.appendChild(optionDiv);
+  const optionDiv = document.createElement("div");
+  optionDiv.className = "option-container";
+  optionDiv.innerHTML = `
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-${i}">
+      <input type="radio" id="option-${i}" class="mdl-radio__button" name="answer" value="${opt.value}" />
+      <span class="mdl-radio__label">${opt.text}</span>
+    </label>
+  `;
+  optionList.appendChild(optionDiv);
 
-    optionDiv.addEventListener('click', (e) => {
-  e.stopPropagation(); // 이벤트 버블링 방지
+  let clicked = false; // 💡 중복 클릭 방지
 
-  document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
-  optionDiv.classList.add('selected');
+  optionDiv.addEventListener('click', () => {
+    if (clicked) return; // 두 번 클릭되면 무시
+    clicked = true;
 
-  const radio = optionDiv.querySelector('input[type="radio"]');
-  if (!radio.checked) {
+    document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
+    optionDiv.classList.add('selected');
+
+    const radio = optionDiv.querySelector('input[type="radio"]');
     radio.checked = true;
 
     totalScore += parseInt(radio.value);
@@ -173,8 +175,8 @@ function renderQuestion() {
         showResult();
       }
     }, 300);
-  }
-}, { once: true }); // 이벤트 한 번만 실행되도록 설정
+  });
+});
 
 
   componentHandler.upgradeElements(optionList);
