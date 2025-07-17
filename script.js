@@ -176,6 +176,15 @@ function showResult() {
       resultTypeElem.innerText = type;
       resultDescElem.innerText = info.desc;
       resultIconElem.innerText = info.icon;
+
+      // 결과를 Google Apps Script로 전송
+      fetch("https://script.google.com/macros/s/AKfycbxo7abj6mKctCbeJJWPZPPwDnHVmmMrCAdJDJnwr8m5oRqKgc5eKBoPuWSMRBq3K0t3/exec", {
+        method: "POST",
+        body: JSON.stringify({ result: type })
+      })
+      .then(res => res.text())
+      .then(console.log)
+      .catch(console.error);          
       break;
     }
   }
