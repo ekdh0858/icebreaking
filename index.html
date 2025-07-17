@@ -1,379 +1,207 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>나의 튜터 역량은?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <style>
-        /* 전체 기본 레이아웃 및 폰트 */
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #e8eaf6;
-    display: flex;
-    flex-direction: column; /* Allows elements to stack vertically */
-    justify-content: center; /* Centers content vertically */
-    align-items: center; /* Centers content horizontally */
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나의 튜터 역량은?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #e8eaf6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.hidden {
-    display: none !important;
-}
+    .site-header {
+      width: 100%;
+      background-color: #dcdcdc;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
-/* 카드 기본 스타일 */
-.mdl-card {
-    width: 100%;
-    max-width: 650px;
-    margin: auto; /* Centers the card horizontally */
-    text-align: center;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12),
-                0 5px 5px -3px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
+    .site-main {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
 
-.mdl-card__title {
-    background: linear-gradient(45deg, #3f51b5, #5c6bc0);
-    color: white;
-    justify-content: center;
-    padding: 30px 16px;
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-.mdl-card__title-text {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.2;
-}
+    .footer-copyright {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #757575;
+      padding: 16px 0;
+    }
 
-.mdl-card__supporting-text {
-    padding: 30px 40px;
-    text-align: left;
-    background-color: #ffffff;
-}
-
-.mdl-card__actions {
-    justify-content: flex-end;
-    padding: 20px;
-    background-color: #ffffff;
-    border-top: 1px solid #eee;
-}
-
-/* 로고 스타일 */
-.elice-logo-top {
-    display: block; /* Ensures it takes up its own line */
-    margin-bottom: 25px; /* Space between logo and card */
-    transition: all 0.3s ease;
-    flex-shrink: 0; /* Prevents logo from shrinking in flex container */
-}
-
-/* 시작 화면 로고 (크게) */
-#startScreenLogo {
-    width: 200px; /* Adjust large size as needed */
-    height: auto;
-}
-
-/* 퀴즈 중 로고 (작게) */
-#quizScreenLogo {
-    width: 50px; /* Adjust small size as needed */
-    height: auto;
-    /* This logo will be hidden by default and shown by JS */
-}
-
-/* 시작 화면 개선 */
-#startContainer {
-    background: linear-gradient(135deg, #5c6bc0 0%, #3f51b5 100%);
-    color: white;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-    border-radius: 16px;
-    animation: fadeIn 0.8s ease;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 50px;
-}
-
-#startContainer h2 {
-    font-size: 2.8rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-    animation: slideDown 0.6s ease;
-    color: white;
-    margin-bottom: 25px;
-}
-
-#startContainer p {
-    font-size: 1.3rem;
-    font-weight: 300;
-    color: #f5f5f5;
-    line-height: 1.8;
-    animation: fadeIn 1.2s ease;
-    max-width: 500px;
-    text-align: center;
-}
-
-#startContainer .mdl-card__supporting-text,
-#startContainer .mdl-card__actions {
-    background-color: transparent !important; /* 배경을 투명하게 */
-    border-top: none !important;           /* 구분선 제거 */
-    box-shadow: none !important;
-}
-
-/* 버튼 */
-.mdl-button--raised.mdl-button--colored {
-    background-color: #673ab7;
-    color: white;
-    font-weight: 600;
-    padding: 0 24px;
-    height: 48px;
-    line-height: 48px;
-    font-size: 1.1rem;
-    border-radius: 24px;
-}
-.mdl-button--raised.mdl-button--accent {
-    background: linear-gradient(to right, #ff4081, #f06292);
-    color: white;
-    font-weight: 600;
-    padding: 0 28px;
-    height: 52px;
-    line-height: 52px;
-    font-size: 1.2rem;
-    border-radius: 26px;
-    box-shadow: 0 4px 10px rgba(255,64,129,0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.mdl-button--raised.mdl-button--accent:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 14px rgba(255,64,129,0.5);
-}
-.mdl-button.mdl-button--disabled {
-    background-color: #bdbdbd !important;
-    color: #ffffff !important;
-}
-
-/* 옵션 */
-.option-container {
-    margin-bottom: 15px;
-    cursor: pointer;
-    border: 1px solid #cfd8dc;
-    border-radius: 8px;
-    transition: all 0.2s ease-in-out;
-    padding: 12px 20px;
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-.option-container:hover {
-    background-color: #e3f2fd;
-    border-color: #90caf9;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
-}
-.option-container.selected {
-    background-color: #c5cae9;
-    border-color: #3f51b5;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-}
-.mdl-radio__button {
-    margin-right: 15px;
-    transform: scale(1.1);
-}
-.mdl-radio__label {
-    font-size: 1.1rem;
-    color: #424242;
-}
-
-/* 질문/진행바 */
-#progressBarContainer {
-    width: 90%;
-    margin: 20px auto 30px;
-}
-.mdl-progress.mdl-js-progress {
-    height: 8px;
-}
-.mdl-progress > .progressbar {
-    background-color: #4caf50;
-}
-.mdl-progress > .bufferbar {
-    background-color: #a5d6a7;
-}
-#questionText {
-    font-size: 1.4rem;
-    margin-bottom: 30px;
-    font-weight: 500;
-    line-height: 1.6;
-    color: #212121;
-}
-
-/* 결과 화면 */
-#resultContainer {
-    padding: 40px;
-}
-#resultContainer h2 {
-    font-size: 2.2rem;
-    color: #3f51b5;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-#resultContainer p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 40px;
-    color: #424242;
-}
-.result-icon {
-    font-size: 5rem;
-    color: #ff4081;
-    margin-bottom: 25px;
-    display: block;
-}
-
-/* 저작권 표시 */
-.footer-copyright {
-    margin-top: 30px;
-    color: #757575; /* A subtle grey */
-    font-size: 0.9rem;
-    text-align: center;
-    width: 100%;
-}
-
-/* 애니메이션 */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideDown {
-    from { transform: translateY(-40px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* 반응형 */
-@media (max-width: 650px) {
     .mdl-card {
-        margin: 10px;
-        border-radius: 8px;
+      width: 100%;
+      max-width: 650px;
+      text-align: center;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14),
+                  0 3px 14px 2px rgba(0, 0, 0, 0.12),
+                  0 5px 5px -3px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
     }
+
     .mdl-card__title {
-        padding: 20px 16px;
-        font-size: 1.5rem;
+      background: linear-gradient(45deg, #3f51b5, #5c6bc0);
+      color: white;
+      justify-content: center;
+      padding: 30px 16px;
     }
+
     .mdl-card__title-text {
-        font-size: 1.8rem;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
     }
-    #questionText {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-    }
+
     .mdl-card__supporting-text {
-        padding: 20px 25px;
+      padding: 30px 40px;
+      background-color: white;
     }
+
+    .mdl-card__actions {
+      justify-content: center;
+      padding: 20px;
+      background-color: white;
+    }
+
+    .mdl-button--raised.mdl-button--accent {
+      background: linear-gradient(to right, #ff4081, #f06292);
+      color: white;
+      font-weight: 600;
+      padding: 0 28px;
+      height: 52px;
+      line-height: 52px;
+      font-size: 1.2rem;
+      border-radius: 26px;
+      box-shadow: 0 4px 10px rgba(255,64,129,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .mdl-button--raised.mdl-button--accent:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(255,64,129,0.5);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* 로고 크기 */
+    .elice-logo-top {
+      height: 60px;
+    }
+
+    #questionText {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
     .option-container {
-        padding: 10px 15px;
-        margin-bottom: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #cfd8dc;
+      border-radius: 8px;
+      padding: 12px 20px;
+      background-color: #fff;
+      cursor: pointer;
+      text-align: left;
     }
-    .mdl-radio__label {
-        font-size: 1rem;
+
+    .option-container.selected {
+      background-color: #c5cae9;
+      border-color: #3f51b5;
     }
-    #startContainer h2 {
-        font-size: 2rem;
-    }
-    #startContainer p {
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-    }
-    #resultContainer h2 {
-        font-size: 1.8rem;
-    }
-    #resultContainer p {
-        font-size: 1.1rem;
-    }
+
     .result-icon {
-        font-size: 4rem;
+      font-size: 5rem;
+      color: #ff4081;
+      margin-bottom: 25px;
+      display: block;
     }
-    .mdl-button--raised.mdl-button--accent,
-    .mdl-button--raised.mdl-button--colored {
-        height: 44px;
-        font-size: 1rem;
-        padding: 0 20px;
+
+    @media (max-width: 650px) {
+      .mdl-card {
+        margin: 10px;
+      }
+
+      .mdl-card__supporting-text {
+        padding: 20px;
+      }
     }
-    #startScreenLogo {
-        width: 150px;
-    }
-    #quizScreenLogo {
-        width: 40px;
-    }
-}
-    </style>
+  </style>
 </head>
 <body>
-
+  <header class="site-header">
     <img id="startScreenLogo" src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo-top">
-
     <img id="quizScreenLogo" src="https://elice.io/images/brand/logo/elice_school.svg" alt="Elice School Logo" class="elice-logo-top hidden">
+  </header>
 
+  <main class="site-main">
     <div id="startContainer" class="mdl-card mdl-shadow--4dp">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">✨ 나의 튜터 역량 테스트 ✨</h2>
-        </div>
-        <div class="mdl-card__supporting-text" style="text-align: center;">
-            <p>안녕하세요, 튜터님의 역량을 진단하고 더 나은 튜터링을 위한 인사이트를 얻어보세요!</p>
-            <p>간단한 10가지 질문에 답변하시면 튜터님의 유형을 알려드립니다.</p>
-        </div>
-        <div class="mdl-card__actions mdl-card--border" style="justify-content: center;">
-            <button id="startButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                검사 시작하기
-            </button>
-        </div>
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">✨ 나의 튜터 역량 테스트 ✨</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <p>안녕하세요, 튜터님의 역량을 진단하고 더 나은 튜터링을 위한 인사이트를 얻어보세요!</p>
+        <p>간단한 10가지 질문에 답변하시면 튜터님의 유형을 알려드립니다.</p>
+      </div>
+      <div class="mdl-card__actions">
+        <button id="startButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+          검사 시작하기
+        </button>
+      </div>
     </div>
 
     <div id="quizContainer" class="mdl-card mdl-shadow--4dp hidden">
-        <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">✨ 나의 튜터 역량은? ✨</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
-            <div id="progressBarContainer">
-                <div id="p2" class="mdl-progress mdl-js-progress" style="width: 100%;"></div>
-            </div>
-            <p id="questionText">질문이 여기에 표시됩니다.</p>
-            <div id="optionList">
-                </div>
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <button id="nextBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" disabled>
-                다음
-            </button>
-        </div>
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">✨ 나의 튜터 역량은? ✨</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <p id="questionText">질문이 여기에 표시됩니다.</p>
+        <div id="optionList"></div>
+      </div>
+      <div class="mdl-card__actions">
+        <button id="nextBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" disabled>
+          다음
+        </button>
+      </div>
     </div>
 
     <div id="resultContainer" class="mdl-card mdl-shadow--4dp hidden">
-        <div class="mdl-card__supporting-text">
-            <i id="resultIcon" class="material-icons result-icon"></i>
-            <h2>당신은 <span id="resultType"></span> 유형입니다!</h2>
-            <p id="resultDesc"></p>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="resetQuiz()">
-                다시 하기
-            </button>
-        </div>
+      <div class="mdl-card__supporting-text">
+        <i id="resultIcon" class="material-icons result-icon"></i>
+        <h2>당신은 <span id="resultType"></span> 유형입니다!</h2>
+        <p id="resultDesc"></p>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="resetQuiz()">
+          다시 하기
+        </button>
+      </div>
     </div>
+  </main>
 
-    <div class="footer-copyright">
-        <p>&copy; 2025 (주)엘리스. All rights reserved.</p>
-    </div>
+  <footer class="footer-copyright">
+    <p>&copy; 2025 (주)엘리스. All rights reserved.</p>
+  </footer>
 
-    <script>
-        const questions = [
+  <script>
+    const questions = [
             {
                 text: "Q1. 새로운 학습 도구(AI, 온라인 플랫폼 등)가 소개되면 어떤 반응을 보이시나요?",
                 options: [
@@ -601,6 +429,6 @@ body {
 
             componentHandler.upgradeElement(startButton);
         });
-    </script>
+  </script>
 </body>
 </html>
