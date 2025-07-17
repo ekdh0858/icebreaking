@@ -49,6 +49,7 @@ body {
     padding: 30px 16px;
     font-size: 1.8rem;
     font-weight: 700;
+    position: relative; /* For logo positioning */
 }
 .mdl-card__title-text {
     font-size: 2rem;
@@ -67,6 +68,29 @@ body {
     padding: 20px;
     background-color: #ffffff;
     border-top: 1px solid #eee;
+}
+
+/* 로고 스타일 */
+.elice-logo {
+    display: block;
+    margin: 0 auto 30px; /* Centered, with space below */
+    transition: all 0.3s ease;
+}
+
+/* 시작 화면 로고 */
+#startContainer .elice-logo {
+    width: 250px; /* Large size for start screen */
+    height: auto;
+}
+
+/* 퀴즈 중 작은 로고 */
+#quizContainer .elice-logo {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 50px; /* Small size for quiz screen */
+    height: auto;
+    margin: 0; /* Override margin from general logo style */
 }
 
 /* 시작 화면 개선 */
@@ -287,21 +311,26 @@ body {
         font-size: 1rem;
         padding: 0 20px;
     }
+    #quizContainer .elice-logo {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+    }
 }
     </style>
-        
 </head>
 <body>
 
     <div id="startContainer" class="mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
+            <img src="YOUR_LARGE_LOGO_IMAGE_URL_HERE" alt="Elice Logo" class="elice-logo">
             <h2 class="mdl-card__title-text">✨ 나의 튜터 역량 테스트 ✨</h2>
         </div>
         <div class="mdl-card__supporting-text" style="text-align: center;">
             <p>안녕하세요, 튜터님의 역량을 진단하고 더 나은 튜터링을 위한 인사이트를 얻어보세요!</p>
             <p>간단한 10가지 질문에 답변하시면 튜터님의 유형을 알려드립니다.</p>
         </div>
-        <div class="mdl-card__actions mdl-card--border" style="justify-content: center;">
+        <div class="https://elice.io/images/brand/logo/elice_school.svg" style="justify-content: center;">
             <button id="startButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                 검사 시작하기
             </button>
@@ -310,6 +339,7 @@ body {
 
     <div id="quizContainer" class="mdl-card mdl-shadow--4dp hidden">
         <div class="mdl-card__title">
+            <img src="YOUR_SMALL_LOGO_IMAGE_URL_HERE" alt="Elice Logo" class="elice-logo">
             <h2 class="mdl-card__title-text">✨ 나의 튜터 역량은? ✨</h2>
         </div>
         <div class="mdl-card__supporting-text">
@@ -386,7 +416,7 @@ body {
                     { text: "💡 스스로 검색하거나 해결책을 찾아 능숙하게 대처합니다.", value: 4 },
                     { text: "🤔 간단한 문제는 해결하지만, 복잡하면 도움을 요청합니다.", value: 3 },
                     { text: "🤷‍♀️ 기술적인 문제는 다른 사람에게 전적으로 의존하는 편입니다.", value: 2 },
-                    { text: "🙅‍♀️ 기술 문제 해결 자체에 부담을 느낍니다.", value: 1 }
+                    { text: "🙅‍♀️ 기술 문제 해결 자체에 부담을 느낍.", value: 1 }
                 ]
             },
             {
