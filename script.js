@@ -148,44 +148,44 @@ startButton.addEventListener('click', () => {
 });
 
 // 통계 보기
-showStatsBtn.addEventListener('click', () => {
-  startContainer.classList.add("hidden");
-  quizContainer.classList.add("hidden");
-  resultContainer.classList.add("hidden");
-  statsContainer.classList.remove("hidden");
+// showStatsBtn.addEventListener('click', () => {
+//   startContainer.classList.add("hidden");
+//   quizContainer.classList.add("hidden");
+//   resultContainer.classList.add("hidden");
+//   statsContainer.classList.remove("hidden");
 
-  fetch("https://script.google.com/macros/s/AKfycbwRosnahFp_pZtOJK3Mak3gNntzvdIG1Af5wkRBvGEKk7XraPW7EcwbHNAs-xkYLyzJ/exec")
-    .then(res => res.json())
-    .then(data => {
-      statsList.innerHTML = '';
-      data.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.type}: ${item.count}명 (${item.percent}%)`;
-        statsList.appendChild(li);
-      });
+//   fetch("https://script.google.com/macros/s/AKfycbwRosnahFp_pZtOJK3Mak3gNntzvdIG1Af5wkRBvGEKk7XraPW7EcwbHNAs-xkYLyzJ/exec")
+//     .then(res => res.json())
+//     .then(data => {
+//       statsList.innerHTML = '';
+//       data.forEach(item => {
+//         const li = document.createElement('li');
+//         li.textContent = `${item.type}: ${item.count}명 (${item.percent}%)`;
+//         statsList.appendChild(li);
+//       });
 
-      new Chart(statsChartCanvas, {
-        type: 'bar',
-        data: {
-          labels: data.map(d => d.type),
-          datasets: [{
-            label: '응답 수',
-            data: data.map(d => d.count),
-            backgroundColor: '#7986cb'
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false }
-          },
-          scales: {
-            y: { beginAtZero: true }
-          }
-        }
-      });
-    });
-});
+//       new Chart(statsChartCanvas, {
+//         type: 'bar',
+//         data: {
+//           labels: data.map(d => d.type),
+//           datasets: [{
+//             label: '응답 수',
+//             data: data.map(d => d.count),
+//             backgroundColor: '#7986cb'
+//           }]
+//         },
+//         options: {
+//           responsive: true,
+//           plugins: {
+//             legend: { display: false }
+//           },
+//           scales: {
+//             y: { beginAtZero: true }
+//           }
+//         }
+//       });
+//     });
+// });
 
 // 질문 렌더링
 function renderQuestion() {
