@@ -153,25 +153,29 @@ function renderQuestion() {
     `;
     optionList.appendChild(optionDiv);
 
-    optionDiv.addEventListener('click', () => {
-      document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
-      optionDiv.classList.add('selected');
+    optionDiv.addEventListener('click', (e) => {
+  e.stopPropagation(); // 이벤트 버블링 방지
 
-      const radio = optionDiv.querySelector('input[type="radio"]');
-      radio.checked = true;
+  document.querySelectorAll('.option-container').forEach(div => div.classList.remove('selected'));
+  optionDiv.classList.add('selected');
 
-      totalScore += parseInt(radio.value);
-      currentQuestionIndex++;
+  const radio = optionDiv.querySelector('input[type="radio"]');
+  if (!radio.checked) {
+    radio.checked = true;
 
-      setTimeout(() => {
-        if (currentQuestionIndex < questions.length) {
-          renderQuestion();
-        } else {
-          showResult();
-        }
-      }, 300);
-    });
-  });
+    totalScore += parseInt(radio.value);
+    currentQuestionIndex++;
+
+    setTimeout(() => {
+      if (currentQuestionIndex < questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }, 300);
+  }
+}, { once: true }); // 이벤트 한 번만 실행되도록 설정
+
 
   componentHandler.upgradeElements(optionList);
 }
