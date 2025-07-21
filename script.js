@@ -185,7 +185,7 @@ function showResult() {
       resultIconElem.innerText = info.icon;
 
       // 3. Google Sheets에 결과 POST 전송
-      fetch("https://script.google.com/macros/s/AKfycbyqS2fFFZ21ZEe8_A0FNsdzyctpCth_4yuZKxJbtqStK8tSlKu3pSjXGxXv59frstRb/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbyrx9Na58jMkCDGwLB0GM5OzDtWC2ZSBJum6pvR08rmnoUK3PAWaiT9XnrTVwVOS-cA/exec", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ result: type })
