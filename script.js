@@ -183,6 +183,14 @@ function showResult() {
       resultTypeElem.innerText = type;
       resultDescElem.innerText = info.desc;
       resultIconElem.innerText = info.icon;
+
+      // 3. Google Sheets에 결과 POST 전송
+      fetch("https://script.google.com/macros/s/AKfycbyqS2fFFZ21ZEe8_A0FNsdzyctpCth_4yuZKxJbtqStK8tSlKu3pSjXGxXv59frstRb/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ result: type })
+      });
+                
       break;
     }
   }
